@@ -2,6 +2,5 @@
 require 'sinatra'
 
 get '/' do
-  slim :index, :layout => :default
+  slim :index, layout: :default
 end
-
