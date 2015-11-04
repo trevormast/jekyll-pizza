@@ -1,15 +1,67 @@
 doctype html
 html lang="en"
   head
-    meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous"
-    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous"
-    script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"
-    link rel="stylesheet" href="default.css"
-    link rel="stylesheet" href="auth-buttons.css"
+    meta charset="utf-8" 
+    meta name="viewport" content="width=device-width, initial-scale=1" 
+    /![if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]
+    link rel="stylesheet" href="/assets/css/main.css"
+    link rel="stylesheet" href="/auth-buttons.css"
+    /![if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]
+    /![if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]
+
+    / Scripts -->
+    script src="/assets/js/skel.min.js"
+    script src="/assets/js/jquery.min.js"
+    script src="/assets/js/jquery.scrollex.min.js"
+    script src="/assets/js/util.js"
+      /!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    script src="/assets/js/main.js"
+  
   body
-    .container
-      .row
-        .col-xs-12 role="main"
-          == yield
-          
+    div id="page-wrapper"
+      / Header -->
+      header id="header" class="alt"
+        h1
+          a href="index.html" Blog-Poole
+        
+
+      == yield
+
+      section#footer
+        .inner
+          h2.major Get in touch
+          p Cras mattis ante fermentum, malesuada neque vitae, eleifend erat. Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis egestas, purus ipsum consequat orci, sit amet lobortis lorem lacus in tellus. Sed ac elementum arcu. Quisque placerat auctor laoreet.
+          form action="#" method="post" 
+            .field
+              label for="name"  Name
+              input#name name="name" type="text" /
+            .field
+              label for="email"  Email
+              input#email name="email" type="email" /
+            .field
+              label for="message"  Message
+              textarea#message name="message" rows="4" 
+            ul.actions
+              li
+                input type="submit" value=("Send Message") /
+          ul.contact
+            li.fa-home
+              | Untitled Inc
+              br/
+              | 1234 Somewhere Road Suite #2894
+              br/
+              | Nashville, TN 00000-0000
+            li.fa-phone (000) 000-0000
+            li.fa-envelope
+              a href="#"  information@untitled.tld
+            li.fa-twitter
+              a href="#"  twitter.com/untitled-tld
+            li.fa-facebook
+              a href="#"  facebook.com/untitled-tld
+            li.fa-instagram
+              a href="#"  instagram.com/untitled-tld
+          ul.copyright
+            li &copy; Untitled Inc. All rights reserved.
+            li
+              | Design:
+              a href="http://html5up.net"  HTML5 UP
