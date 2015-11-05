@@ -1,0 +1,38 @@
+section#wrapper
+  section#one.wrapper.spotlight.style1
+    .inner
+      div style="float: right; display: block; width: 50%; margin-left: 3.0em; text-align: left;"
+        form#blog-form action="/create" method="post"
+
+          .field
+            label Blog Title
+            input name="site['title']" type="text" placeholder="#{Faker::Company.catch_phrase}"
+
+          .field
+            label Description
+            textarea name="site['description']" placeholder="#{Faker::Lorem.paragraph}"
+
+
+          .field
+            h2 Blog Location
+            div style="display: block; width: 50%; float: left;"
+              label Root URL
+              input name="site['root_url']" type="text" readonly="readonly" value="#{@user.login}.github.io" style="width: 100%"
+            div style="display: block;"
+              label for="path"= "Path #{@existing_root_repo == true ? '(Required)' : '(Optional)'}"
+              input#path name="site['path']" type="text" value="" style="width: 50%" placeholder="/best-blog-ever"
+
+
+          input type="submit" value="Create Jekyll.pizza"
+      div
+        a.image
+          img src="#{@user.avatar_url}"
+
+        h2 Submit your Order
+        p Enter the following information about your new blog.
+
+- if @existing_root_repo
+  javascript:
+    $(function () {
+      $('#path').attr('required','required');
+    });

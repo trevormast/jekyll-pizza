@@ -64,6 +64,9 @@
     line-height: 36px;
     font-size: 20px;
 }
+.btn-auth.large b {
+    color: #000;
+}
 
 .btn-auth.large:before {
     width: 36px;

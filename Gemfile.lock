@@ -1,11 +1,25 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (4.2.4)
+      i18n (~> 0.7)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
+      tzinfo (~> 1.1)
+    addressable (2.3.8)
     ast (2.1.0)
     astrolabe (1.3.1)
       parser (~> 2.2)
+    coderay (1.1.0)
     colorator (0.1)
+    dotenv (2.0.2)
+    faker (1.5.0)
+      i18n (~> 0.5)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.10)
+    i18n (0.7.0)
     jekyll (3.0.0)
       colorator (~> 0.1)
       jekyll-sass-converter (~> 1.0)
@@ -19,15 +33,25 @@ GEM
       sass (~> 3.2)
     jekyll-watch (1.3.0)
       listen (~> 3.0)
+    json (1.8.3)
     kramdown (1.9.0)
     liquid (3.0.6)
-    listen (3.0.3)
+    listen (3.0.4)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     mercenary (0.3.5)
+    method_source (0.8.2)
+    minitest (5.8.2)
+    multipart-post (2.0.0)
+    octokit (4.1.1)
+      sawyer (~> 0.6.0, >= 0.5.3)
     parser (2.2.3.0)
       ast (>= 1.1, < 3.0)
     powerpack (0.1.1)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -38,33 +62,55 @@ GEM
     rerun (0.11.0)
       listen (~> 3.0)
     rouge (1.10.1)
-    rubocop (0.34.2)
+    rubocop (0.35.1)
       astrolabe (~> 1.3)
-      parser (>= 2.2.2.5, < 3.0)
+      parser (>= 2.2.3.0, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
-      ruby-progressbar (~> 1.4)
+      ruby-progressbar (~> 1.7)
+      tins (<= 1.6.0)
     ruby-progressbar (1.7.5)
     safe_yaml (1.0.4)
     sass (3.4.19)
+    sawyer (0.6.0)
+      addressable (~> 2.3.5)
+      faraday (~> 0.8, < 0.10)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
+    sinatra_auth_github (1.2.0)
+      sinatra (~> 1.0)
+      warden-github (~> 1.2.0)
     slim (3.0.6)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
+    slop (3.6.0)
     temple (0.7.6)
+    thread_safe (0.3.5)
     tilt (2.0.1)
+    tins (1.6.0)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+    warden (1.2.3)
+      rack (>= 1.0)
+    warden-github (1.2.0)
+      activesupport (> 3.0)
+      octokit (> 2.1.0)
+      warden (> 1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  jekyll (= 3.0.0)
+  dotenv
+  faker
+  jekyll (~> 3.0.0)
+  pry
   rerun
   rubocop
   sinatra
+  sinatra_auth_github
   slim
 
 BUNDLED WITH
