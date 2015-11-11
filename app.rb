@@ -3,6 +3,7 @@ require 'sinatra/auth/github'
 require './lib/view_helpers'
 require 'slim'
 require 'faker'
+require 'yaml'
 require 'pry' if AppEnv.development?
 
 module BlogPoole
@@ -60,5 +61,37 @@ module BlogPoole
     def check_root_repo_status
       @api.repository?("#{@user.login}/#{@user.login}.github.io")
     end
+   
+    def generate_new_jekyll(user_options)
+      Dir.mktmpdir do |dir|
+        FileUtils.copy_entry('./lib/clean-jekyll/', dir)
+        updated_config = update_config(dir, user_options)
+        write_config(updated_config, dir)
+        # debug
+        new_config = YAML.load_file("#{dir}/_config.yml")
+        puts new_config
+
+        # commit_new_jekyll(dir, user_options)
+      end
+    end
+
+    def update_config(write_dir, user_options)
+      config = YAML.load_file("#{write_dir}/_config.yml")
+      config.merge(user_options)
+    end
+
+    def write_config(config, dir)
+      File.open("#{dir}/_config.yml", 'w') do |file| 
+        file.write config.to_yaml
+      end
+    end
+
+    def commit_new_jekyll(_dir, _user_options)
+      # TODO: create repository
+      #     create commit
+      #     push to repo!
+      #     profit!
+    end
   end
 end
+
