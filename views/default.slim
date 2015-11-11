@@ -6,6 +6,7 @@ html lang="en"
     /![if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]
     link rel="stylesheet" href="/assets/css/main.css"
     link rel="stylesheet" href="/auth-buttons.css"
+    link rel="stylesheet" href="/default.css"
     /![if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]
     /![if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]
 
@@ -19,49 +20,28 @@ html lang="en"
   
   body
     div id="page-wrapper"
-      / Header -->
       header id="header" class="alt"
         h1
-          a href="index.html" Blog-Poole
+          a href="#{root_url}#content" jekyll.pizza
         
-
-      == yield
+      #content
+        == yield
 
       section#footer
         .inner
-          h2.major Get in touch
-          p Cras mattis ante fermentum, malesuada neque vitae, eleifend erat. Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis egestas, purus ipsum consequat orci, sit amet lobortis lorem lacus in tellus. Sed ac elementum arcu. Quisque placerat auctor laoreet.
-          form action="#" method="post" 
-            .field
-              label for="name"  Name
-              input#name name="name" type="text" /
-            .field
-              label for="email"  Email
-              input#email name="email" type="email" /
-            .field
-              label for="message"  Message
-              textarea#message name="message" rows="4" 
-            ul.actions
-              li
-                input type="submit" value=("Send Message") /
           ul.contact
-            li.fa-home
-              | Untitled Inc
-              br/
-              | 1234 Somewhere Road Suite #2894
-              br/
-              | Nashville, TN 00000-0000
-            li.fa-phone (000) 000-0000
+            li.fa-home 
+              a href="#{root_url}" jekyll.pizza
             li.fa-envelope
-              a href="#"  information@untitled.tld
+              a href="mailto:info@jekyll.pizza" info@jekyll.pizza
             li.fa-twitter
-              a href="#"  twitter.com/untitled-tld
-            li.fa-facebook
-              a href="#"  facebook.com/untitled-tld
-            li.fa-instagram
-              a href="#"  instagram.com/untitled-tld
+              a href="https://twitter.com/jekyllpizza" target="_blank" twitter.com/jekyllpizza
+            li.fa-btc
+              a href="#{root_url}donate" donate
+                
+            
           ul.copyright
-            li &copy; Untitled Inc. All rights reserved.
+            li &copy; <a href="#{root_url}">jekyll.pizza</a> 2015 - All rights reserved.
             li
               | Design:
               a href="http://html5up.net"  HTML5 UP
