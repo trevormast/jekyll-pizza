@@ -2,15 +2,16 @@ section#wrapper
   section#one.wrapper.spotlight.style1
     .inner
       div style="float: right; display: block; width: 50%; margin-left: 3.0em; text-align: left;"
+
         form#blog-form action="/create" method="post"
 
           .field
             label Blog Title
-            input name="site['title']" type="text" placeholder="#{Faker::Company.catch_phrase}"
+            input name="site[title]" type="text" placeholder="#{Faker::Company.catch_phrase}"
 
           .field
             label Description
-            textarea name="site['description']" placeholder="#{Faker::Lorem.paragraph}"
+            textarea name="site['description']" placeholder="#{Faker::Company.bs.capitalize + ' and ' + Faker::Company.bs}"
 
 
           .field
@@ -23,13 +24,14 @@ section#wrapper
               input#path name="site['path']" type="text" value="" style="width: 50%" placeholder="/best-blog-ever"
 
 
-          input type="submit" value="Create Jekyll.pizza"
-      div
-        a.image
-          img src="#{@user.avatar_url}"
+          input type="submit" value="Create"
 
+      div
+        a href="http://#{@user.login}.github.com" target="_blank" style="border-bottom: 0 none"
+          img src="#{@user.avatar_url}" style="width: 100px; border-radius: 50%;"
         h2 Submit your Order
-        p Enter the following information about your new blog.
+        p Enter some information about your new blog to get started
+        br clear="both" 
 
 - if @existing_root_repo
   javascript:
