@@ -6,21 +6,21 @@ section#wrapper
 
           .field
             label Blog Title
-            input name="site['title']" type="text" placeholder="#{Faker::Company.catch_phrase}"
+            input name="site[title]" type="text" placeholder="#{Faker::Company.catch_phrase}"
 
           .field
             label Description
-            textarea name="site['description']" placeholder="#{Faker::Lorem.paragraph}"
+            textarea name="site[description]" placeholder="#{Faker::Lorem.paragraph}"
 
 
           .field
             h2 Blog Location
             div style="display: block; width: 50%; float: left;"
               label Root URL
-              input name="site['root_url']" type="text" readonly="readonly" value="#{@user.login}.github.io" style="width: 100%"
+              input name="site[root_url]" type="text" readonly="readonly" value="#{@user.login}.github.io" style="width: 100%"
             div style="display: block;"
               label for="path"= "Path #{@existing_root_repo == true ? '(Required)' : '(Optional)'}"
-              input#path name="site['path']" type="text" value="" style="width: 50%" placeholder="/best-blog-ever"
+              input#path name="site[path]" type="text" value="" style="width: 50%" placeholder="/best-blog-ever"
 
 
           input type="submit" value="Create Jekyll.pizza"
