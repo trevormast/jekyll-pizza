@@ -5,6 +5,7 @@ gem 'sinatra'
 gem 'slim'
 gem 'sinatra_auth_github'
 gem 'faker'
+gem 'coffee-script'
 
 group :development do
   gem 'jekyll', '~> 3.0.0'
