@@ -17,6 +17,8 @@ html lang="en"
     script src="/assets/js/util.js"
       /!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     script src="/assets/js/main.js"
+    link rel="icon" type="image/png" href="#{root_url}images/favicon.png"
+    link rel="icon" type="image/x-icon" href="#{root_url}images/favicon.ico"
   
   body
     div id="page-wrapper"
@@ -45,3 +47,23 @@ html lang="en"
             li
               | Design:
               a href="http://html5up.net"  HTML5 UP
+
+    coffee:
+      $ ->
+        windowHeightz0r = ->
+          $('.screen-pane').each ->
+            navH = (parseInt($(this).css('paddingBottom')) / 2)
+            console.log(navH)
+            winH = $(window).height()
+            paneH = winH - navH
+            $(this).css('minHeight',parseInt(paneH)+'px')
+
+        $(window).resize ->
+          windowHeightz0r()
+
+        ready = ->
+          windowHeightz0r()
+
+        $(document).ready(ready)
+        $(document).on('page:load', ready)
+

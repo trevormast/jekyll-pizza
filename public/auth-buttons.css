@@ -135,6 +135,10 @@
 
 .btn-github,
 .btn-github:visited {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+    text-transform: none;
+    letter-spacing: 0;
     border-color: #d4d4d4;
     background: #ececec;
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
@@ -157,6 +161,9 @@
     background-image: -ms-linear-gradient(#599bdc, #3072b3);
     background-image: -o-linear-gradient(#599bdc, #3072b3);
     background-image: linear-gradient(#599bdc, #3072b3);
+}
+.btn-github:hover b {
+    color: #FFFFFF;
 }
 
 .btn-github:active {
