@@ -19,14 +19,21 @@ html lang="en"
     script src="/assets/js/main.js"
     link rel="icon" type="image/png" href="#{root_url}images/favicon.png"
     link rel="icon" type="image/x-icon" href="#{root_url}images/favicon.ico"
-  
+    title jekyll.pizza - Fresh Jekyll blog generator
   body
+    #loading.screen-pane
+      i.fa.fa-cog.fa-spin.fa-5x
+      br
+      br
+      p Your order has been received and we be bakin' yo blog!
     div id="page-wrapper"
       header id="header" class="alt"
         h1
           a href="#{root_url}#content" jekyll.pizza
         
       #content
+        - @flash.each do |message|
+          p.alert== message
         == yield
 
       section#footer
@@ -38,8 +45,11 @@ html lang="en"
               a href="mailto:info@jekyll.pizza" info@jekyll.pizza
             li.fa-twitter
               a href="https://twitter.com/jekyllpizza" target="_blank" twitter.com/jekyllpizza
-            li.fa-btc
-              a href="#{root_url}donate" donate
+            li.fa.fa-creative-commons
+              a href="#{root_url}attribution/" attribution
+            / someday..
+            / li.fa-btc
+            /   a href="#{root_url}donate/" donate
                 
             
           ul.copyright

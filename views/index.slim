@@ -3,14 +3,14 @@ section#banner.screen-pane
   .inner
     .logo
       img src="images/logo.png"
-    h2 Fresh.Jekyll...Blogs
-    p
-      | ...simple, static, blog-aware websites...<em>in seconds</em>
-      br
-      br
-      a.btn-auth.btn-github.large href="/new"
-        | Sign in with <b>GitHub</b>
+      span style="color: #c00; font-weight: bold;" BETA
 
+    h2 Fresh.Jekyll...Blogs 
+    
+    p ...simple, static, blog-aware websites...<em>in seconds</em>
+    br
+    a.btn-auth.btn-github.large href="/new"
+      | Sign in with <b>GitHub</b>
 
 section#wrapper
   section#one.wrapper.spotlight.style1
@@ -39,5 +39,13 @@ section#wrapper
       .content
         h2.major No software to install
         p Use the editor of your choice and focus on your <em>content</em>.
-        / a.special href="#"  Learn more
+        / a.special href="http://prose.io" Try Prose
       
+
+javascript:
+  $(function () {
+    $('.btn-github').click(function (){ 
+      $('#loading p').html('Connecting to <b>GitHub</b>...')
+      $('#loading').fadeIn()
+    })
+  })

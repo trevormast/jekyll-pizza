@@ -11,17 +11,17 @@ section#wrapper
 
           .field
             label Description
-            textarea name="site['description']" placeholder="#{Faker::Company.bs.capitalize + ' and ' + Faker::Company.bs}"
+            textarea name="site[description]" placeholder="#{Faker::Company.bs.capitalize + ' and ' + Faker::Company.bs}"
 
 
           .field
             h2 Blog Location
             div style="display: block; width: 50%; float: left;"
               label Root URL
-              input name="site['root_url']" type="text" readonly="readonly" value="#{@user.login}.github.io" style="width: 100%"
+              input name="site[root_url]" type="text" readonly="readonly" value="#{@user.login}.github.io" style="width: 100%"
             div style="display: block;"
               label for="path"= "Path #{@existing_root_repo == true ? '(Required)' : '(Optional)'}"
-              input#path name="site['path']" type="text" value="" style="width: 50%" placeholder="/best-blog-ever"
+              input#path name="site[path]" type="text" value="" style="width: 50%" placeholder="/best-blog-ever"
 
 
           input type="submit" value="Create"
@@ -33,8 +33,36 @@ section#wrapper
         p Enter some information about your new blog to get started
         br clear="both" 
 
+javascript:
+  $(function () {
+    $('#blog-form').submit(function () {
+      $('#loading').css('marginTop','-6.5em')
+      $('#loading').fadeIn()
+    })
+
+    // fun with clickers.
+    var clk = 0;
+    $('#loading').click(function () {
+      clk++
+      if (clk == 10)
+        $('#loading p').html('Clicking incessantly will actually help speed it up!')
+      if (clk == 40)
+        $('#loading p').html('I bet if you do it a couple more times it will be finished!')
+      if (clk == 80)
+        $('#loading p').html('There are lots of things happening behind the scenes...')
+      if (clk == 120)
+        $('#loading p').html('Almost finished!')
+      if (clk == 500)
+        $('#loading p').html('<h2>5%</h2>')
+      if (clk == 600)
+        $('#loading p').html('<h2>6%</h2>')
+      return false
+    })
+  })
+
+
 - if @existing_root_repo
-  javascript:
-    $(function () {
-      $('#path').attr('required','required');
-    });
+javascript:
+  $(function () {
+      $('#path').attr('required','required')
+    })  
