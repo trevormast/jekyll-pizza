@@ -1,11 +1,17 @@
 require 'sinatra'
 require 'sinatra/auth/github'
 require './lib/view_helpers'
+require 'rack/ssl-enforcer'
 require 'pry' if AppEnv.development?
 
 module BlogPoole
   class App < Sinatra::Base
-    enable :sessions
+    use Rack::SslEnforcer if AppEnv.production?
+    set :session_secret, ENV['RACK_SESSION_SECRET']
+    use Rack::Session::Cookie, :key => '_jekyllpizza_session',
+                               :path => '/',
+                               :expire_after => 2592000, # In seconds
+                               :secret => settings.session_secret
     include ViewHelpers
     set :github_options,       scopes: 'public_repo',
                                secret: ENV['GITHUB_CLIENT_SECRET'],
