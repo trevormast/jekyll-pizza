@@ -8,10 +8,10 @@ module BlogPoole
   class App < Sinatra::Base
     use Rack::SslEnforcer if AppEnv.production?
     set :session_secret, ENV['RACK_SESSION_SECRET']
-    use Rack::Session::Cookie, :key => '_jekyllpizza_session',
-                               :path => '/',
-                               :expire_after => 2592000, # In seconds
-                               :secret => settings.session_secret
+    use Rack::Session::Cookie, key: '_jekyllpizza_session',
+                               path: '/',
+                               expire_after: 2_592_000, # In seconds
+                               secret: settings.session_secret
     include ViewHelpers
     set :github_options,       scopes: 'public_repo',
                                secret: ENV['GITHUB_CLIENT_SECRET'],
@@ -108,6 +108,7 @@ module BlogPoole
 
       safe_params['url'] = "#{@user.login}.github.io"
       safe_params['github_username'] = @user.login
+      safe_params['theme'] = params['site']['theme']
       # safe_params['email'] = @user.email
 
       safe_params
@@ -236,7 +237,13 @@ module BlogPoole
     end
 
     def copy_clean_jekyll(temp_dir)
-      FileUtils.copy_entry('./lib/clean-jekyll/', temp_dir)
+      path = theme_selection(site_params)
+      FileUtils.copy_entry("#{path}", temp_dir)
+    end
+
+    def theme_selection(safe_params)
+      return "./lib/#{safe_params['theme']}/" unless safe_params['theme'] == 'default'
+      './lib/clean-jekyll/'
     end
   end
 end
