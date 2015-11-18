@@ -62,6 +62,7 @@ GEM
       rack
     rack-ssl-enforcer (0.2.9)
     rainbow (2.0.0)
+    rake (10.4.2)
     rb-fsevent (0.9.6)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
@@ -115,6 +116,7 @@ DEPENDENCIES
   jekyll (~> 3.0.0)
   pry
   rack-ssl-enforcer
+  rake
   rerun
   rubocop
   sinatra
