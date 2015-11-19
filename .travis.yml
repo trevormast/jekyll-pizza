@@ -2,5 +2,3 @@ language: ruby
 
 gemfile: Gemfile
 
-script: 
-  -bundle exec rubocop
