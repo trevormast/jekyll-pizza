@@ -1,8 +1,11 @@
 require 'rake'
 require 'bundler'
-require 'rubocop'
+require 'rubocop/rake_task'
+
+task :default => [:rubocop]
 
 
-task :default do
-  Rake::Task['rubocop'].invoke
+desc 'Run rubocop'
+task :rubocop do
+  RuboCop::RakeTask.new
 end
