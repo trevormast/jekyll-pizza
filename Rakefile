@@ -1,1 +1,2 @@
 require 'rake'
+require 'bundler'
