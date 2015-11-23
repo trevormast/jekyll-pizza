@@ -71,8 +71,8 @@ Style/TrailingWhitespace:
 Style/GuardClause:
   Description: Check for conditionals that can be replaced with guard clauses
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-nested-conditionals
-  Enabled: true
-  MinBodyLength: 1
+  Enabled: false
+  MinBodyLength: 4
 
 Style/StringLiterals:
   Description: Checks if uses of quotes match the configured preference.
@@ -85,3 +85,13 @@ Style/StringLiterals:
 
 Style/RaiseArgs:
   Enabled: false
+
+Style/RegexpLiteral:
+  EnforcedStyle: slashes
+  SupportedStyles:
+    - slashes
+    - percent_r
+    - mixed
+  AllowInnerSlashes: true
+
+

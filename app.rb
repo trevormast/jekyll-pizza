@@ -121,7 +121,8 @@ module BlogPoole
       if @user.email.nil?
         session[:error] = 'Please confirm your GitHub account first. <br>' \
                           'For more information, please visit:<br>' \
-                          '<a href="https://help.github.com/articles/verifying-your-email-address/">https://help.github.com/articles/verifying-your-email-address/</a>'
+                          '<a href="https://help.github.com/articles/verifying-your-email-address/">' \
+                          'https://help.github.com/articles/verifying-your-email-address/</a>'
         redirect '/failure'
       end
     end
