@@ -5,14 +5,14 @@ Lint/ParenthesesAsGroupedExpression:
 
 Metrics/ClassLength:
   Description: Avoid classes longer than 150 lines of code.
-  Enabled: true
+  Enabled: false # disabled temporarily
   CountComments: false
   Max: 150
 
 Metrics/LineLength:
   Description: Limit lines to 120 characters.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#80-character-limits
-  Enabled: true
+  Enabled: false # disabled temporarily
   Max: 120
   AllowURI: true
   URISchemes:
@@ -36,6 +36,10 @@ Metrics/ModuleLength:
   Enabled: true
   CountComments: false
   Max: 100
+
+Metrics/AbcSize:
+  Enabled: false # disabled temporarily
+  Max: 15
 
 Style/AndOr:
   Description: Use &&/|| instead of and/or.
@@ -71,8 +75,8 @@ Style/TrailingWhitespace:
 Style/GuardClause:
   Description: Check for conditionals that can be replaced with guard clauses
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-nested-conditionals
-  Enabled: true
-  MinBodyLength: 1
+  Enabled: false
+  MinBodyLength: 4
 
 Style/StringLiterals:
   Description: Checks if uses of quotes match the configured preference.
@@ -85,3 +89,14 @@ Style/StringLiterals:
 
 Style/RaiseArgs:
   Enabled: false
+
+Style/RegexpLiteral:
+  EnforcedStyle: slashes
+  SupportedStyles:
+    - slashes
+    - percent_r
+    - mixed
+  AllowInnerSlashes: true
+
+
+
