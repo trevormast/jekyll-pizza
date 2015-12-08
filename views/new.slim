@@ -1,8 +1,5 @@
-
 section#wrapper
-
   section#one.wrapper.spotlight.style1
-
     .inner
       div style="float: right; display: block; width: 50%; margin-left: 3.0em; text-align: left;"
 
@@ -26,12 +23,9 @@ section#wrapper
               label for="path"= "Path #{@existing_root_repo == true ? '(Required)' : '(Optional)'}"
               input#path name="site[path]" type="text" value="" style="width: 50%" placeholder="/best-blog-ever"
 
-            input type="hidden" name="site[theme]" id="theme"
 
           input type="submit" value="Create"
 
-          a class="button" href="#" data-featherlight="#modal-box" style="float: right" Advanced Options
-          
       div
         a href="http://github.com/#{@user.login}" target="_blank" style="border-bottom: 0 none"
           img src="#{@user.avatar_url}" style="width: 100px; border-radius: 50%;"
@@ -39,59 +33,11 @@ section#wrapper
         p Enter some information about your new blog to get started
         br clear="both" 
 
-      div class="featherlight" id="modal-box"
-        div class="featherlight-content" id="modal-content"
-          h2 Select Your Theme!
-          div class="featherlight-inner" id="modal-images"
-
-            div class="featherlight-inner" id="modal-demo-buttons"
-              a class="tile" href="#" onclick="this.focus()"
-                img class="featherlight-image form-image" src="#{root_url}/images/default.png" data-id="default" 
-
-              a id="demo-button" class="button" href="https://trevormast.github.io/sample/"  target="_blank" Live Demo 
-            
-            div class="featherlight-inner" id="modal-demo-buttons"
-              a class="tile" href="#" onclick="this.focus()"
-                img class="featherlight-image form-image" src="#{root_url}/images/flex.png" data-id="flex" 
-
-              a id="demo-button" class="button" href="http://the-development.github.io/flex/"  target="_blank" Live Demo 
-
-            div class="featherlight-inner" id="modal-demo-buttons" 
-              a class="tile" href="#" onclick="this.focus()"
-                img class="featherlight-image form-image" src="#{root_url}/images/compass.png" data-id="compass" 
-
-              a id="demo-button" class="button" href="http://excentris.net/compass"target="_blank" Live Demo
-
-            div class="featherlight-inner" id="modal-demo-buttons"
-              a class="tile" href="#" onclick="this.focus()"
-                img class="featherlight-image form-image" src="#{root_url}/images/brume.png" data-id="brume" 
-              
-              a id="demo-button" class="button" href="http://aigarsdz.github.io/brume/" target="_blank" Live Demo    
-
-            div class="featherlight-inner" id="modal-button" 
-              a id="save-button" class="button" href="#"Save   
-
-javascript:
-  var prefImage = "default";
-  $('.form-image').click(function(e){
-      e.preventDefault();
-      prefImage = $(this).attr('data-id');
-
-
-      /alert(prefImage)/
-    })
-
-    
 javascript:
   $(function () {
     $('#blog-form').submit(function () {
       $('#loading').css('marginTop','-6.5em')
       $('#loading').fadeIn()
-
-      var elem = document.getElementById("theme");
-      elem.value = prefImage;
-      //$('input#theme').val($("prefImage").val());
-      // return true; 
     })
 
     // fun with clickers.
@@ -120,4 +66,3 @@ javascript:
     $(function () {
         $('#path').attr('required','required')
       })  
-

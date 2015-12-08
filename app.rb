@@ -108,7 +108,6 @@ module BlogPoole
 
       safe_params['url'] = "#{@user.login}.github.io"
       safe_params['github_username'] = @user.login
-      safe_params['theme'] = params['site']['theme']
       # safe_params['email'] = @user.email
 
       safe_params
@@ -238,13 +237,7 @@ module BlogPoole
     end
 
     def copy_clean_jekyll(temp_dir)
-      path = theme_selection(site_params)
-      FileUtils.copy_entry("#{path}", temp_dir)
-    end
-
-    def theme_selection(safe_params)
-      return "./lib/#{safe_params['theme']}/" unless safe_params['theme'] == 'default'
-      './lib/clean-jekyll/'
+      FileUtils.copy_entry('./lib/clean-jekyll/', temp_dir)
     end
   end
 end
