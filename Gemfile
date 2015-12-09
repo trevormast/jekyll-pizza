@@ -14,4 +14,5 @@ group :development do
   gem 'rubocop', require: false
   gem 'dotenv'
   gem 'pry'
+  gem 'rake'
 end
