@@ -242,8 +242,7 @@ module BlogPoole
     end
 
     def theme_selection(safe_params)
-      return "./lib/#{safe_params['theme']}/" unless safe_params['theme'] == 'default'
-      './lib/clean-jekyll/'
+      return "./lib/#{safe_params['theme']}/"
     end
   end
 end
