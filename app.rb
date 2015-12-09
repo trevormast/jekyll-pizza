@@ -108,6 +108,7 @@ module BlogPoole
 
       safe_params['url'] = "#{@user.login}.github.io"
       safe_params['github_username'] = @user.login
+      safe_params['theme'] = params['site']['theme']
       # safe_params['email'] = @user.email
 
       safe_params
@@ -209,7 +210,7 @@ module BlogPoole
       commit_message = "Creates #{remote_path}"
       puts "committing: #{full_path}"
       sha_new_commit = @api.create_commit(repo_url, commit_message, sha_new_tree, sha_latest_commit).sha
-      # updated_ref = @api.update_ref(repo_url, @ref, sha_new_commit)
+      updated_ref = @api.update_ref(repo_url, @ref, sha_new_commit)
       sha_new_commit
     end
 
@@ -237,7 +238,12 @@ module BlogPoole
     end
 
     def copy_clean_jekyll(temp_dir)
-      FileUtils.copy_entry('./lib/clean-jekyll/', temp_dir)
+      path = theme_selection(site_params)
+      FileUtils.copy_entry("#{path}", temp_dir)
+    end
+
+    def theme_selection(safe_params)
+      return "./lib/#{safe_params['theme']}/"
     end
   end
 end
