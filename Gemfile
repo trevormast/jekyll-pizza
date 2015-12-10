@@ -7,6 +7,7 @@ gem 'sinatra_auth_github'
 gem 'faker'
 gem 'coffee-script'
 gem 'rack-ssl-enforcer'
+gem 'puma'
 
 group :development do
   gem 'jekyll', '~> 3.0.0'
