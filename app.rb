@@ -49,6 +49,7 @@ module BlogPoole
 
         @repo = create_jekyll_repo(site_params)
         @site_url = full_repo_url(site_params)
+        final_commit(branch_name)
         slim :create, layout: :default
       rescue StandardError => e
         # TODO: improve logging, error handling.. issue #
@@ -244,6 +245,21 @@ module BlogPoole
 
     def theme_selection(safe_params)
       return "./lib/#{safe_params['theme']}/"
+    end
+
+    def branch_name
+      return "gh-pages" unless params['site']['path'].blank?
+      return "master"
+    end
+
+    def final_commit(branch_name)
+      @api.create_contents("#{@repo[:full_name]}",
+                            "/humans.txt",
+                            "Final Commit",
+                            "Thank you for using jekyll.pizza!",
+                            :branch => "#{branch_name}")
+      puts "FINAL COMMIT"
+
     end
   end
 end
