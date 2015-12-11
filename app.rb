@@ -49,7 +49,7 @@ module BlogPoole
 
         @repo = create_jekyll_repo(site_params)
         @site_url = full_repo_url(site_params)
-        final_commit(branch_name)
+        check_build_status
         slim :create, layout: :default
       rescue StandardError => e
         # TODO: improve logging, error handling.. issue #
@@ -259,7 +259,15 @@ module BlogPoole
                             "Thank you for using jekyll.pizza!",
                             :branch => "#{branch_name}")
       puts "FINAL COMMIT"
-
     end
+
+    def check_build_status
+      build_status = @api.pages("#{@repo[:full_name]}")[:status]
+      while build_status != "built"
+        final_commit(branch_name)
+        sleep(5)
+      end
+    end
+
   end
 end
