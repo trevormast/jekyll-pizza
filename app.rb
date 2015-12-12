@@ -49,6 +49,7 @@ module BlogPoole
 
         @repo = create_jekyll_repo(site_params)
         @site_url = full_repo_url(site_params)
+        sleep(5) # Give GHPages a chance to catch up with api requests
         final_commit(branch_name, 'humans')
         check_build_status
         slim :create, layout: :default
@@ -141,7 +142,6 @@ module BlogPoole
         write_config(@updated_config, dir)
         commit_new_jekyll(dir, user_options)
       end
-      sleep(5) # Give GHPages a chance to catch up with api requests
     end
 
     def update_config(write_dir, user_options)
