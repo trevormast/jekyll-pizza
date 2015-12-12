@@ -49,6 +49,7 @@ module BlogPoole
 
         @repo = create_jekyll_repo(site_params)
         @site_url = full_repo_url(site_params)
+        final_commit(branch_name, 'humans')
         check_build_status
         slim :create, layout: :default
       rescue StandardError => e
@@ -244,30 +245,39 @@ module BlogPoole
     end
 
     def theme_selection(safe_params)
-      return "./lib/#{safe_params['theme']}/"
+      "./lib/#{safe_params['theme']}/"
     end
 
     def branch_name
-      return "gh-pages" unless params['site']['path'].blank?
-      return "master"
+      return 'gh-pages' unless params['site']['path'].blank?
+      'master'
     end
 
-    def final_commit(branch_name)
+    def final_commit(branch_name, file_name)
       @api.create_contents("#{@repo[:full_name]}",
-                            "/humans.txt",
-                            "Final Commit",
-                            "Thank you for using jekyll.pizza!",
-                            :branch => "#{branch_name}")
-      puts "FINAL COMMIT"
+                           "/#{file_name}.txt",
+                           'Final Commit',
+                           'Thank you for using jekyll.pizza!',
+                           branch: "#{branch_name}")
+      puts 'making commit'
     end
 
-    def check_build_status
+    def check_build_status(count = 0)
+      builds = count
       build_status = @api.pages("#{@repo[:full_name]}")[:status]
-      while build_status != "built"
-        final_commit(branch_name)
-        sleep(5)
+      
+      case build_status 
+      when 'building'
+        puts "Build status: #{build_status}"
+        sleep(5) # Give GHPages a chance to catch up with api requests
+        check_build_status(builds)
+      when 'errored'
+        final_commit(branch_name, builds)
+        builds += 1
+        check_build_status(builds)
+      else
+        puts 'BUILD COMPLETE!'
       end
     end
-
   end
 end
