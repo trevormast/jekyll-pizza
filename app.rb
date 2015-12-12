@@ -141,6 +141,7 @@ module BlogPoole
         write_config(@updated_config, dir)
         commit_new_jekyll(dir, user_options)
       end
+      sleep(5) # Give GHPages a chance to catch up with api requests
     end
 
     def update_config(write_dir, user_options)
@@ -260,6 +261,7 @@ module BlogPoole
                            'Thank you for using jekyll.pizza!',
                            branch: "#{branch_name}")
       puts 'making commit'
+      
     end
 
     def check_build_status(count = 0)
