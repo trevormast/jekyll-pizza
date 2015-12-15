@@ -30,7 +30,7 @@ section#wrapper
 
           input type="submit" value="Create"
 
-          a class="button" href="#" data-featherlight="#modal-box" style="float: right" Advanced Options
+          a class="button" href="#" data-featherlight="#modal-box" style="float: right" Theme Options
           
       div id="side-form"
         a href="http://github.com/#{@user.login}" target="_blank" style="border-bottom: 0 none"
@@ -38,8 +38,8 @@ section#wrapper
         h2 Submit your Order
         p Enter some information about your new blog to get started
         div id="theme-box"
+          h2 Theme
           img id="current-theme" src="#{root_url}/images/clean-jekyll.png"
-          p id="theme-text" "Default" theme selected
         br clear="both" 
 
         
@@ -84,7 +84,6 @@ javascript:
 
       imgName = "#{root_url}/images/"+prefImage+".png";
       $('#current-theme').attr("src", imgName);
-      $('#theme-text').text("\""+prefImage+"\""+" theme selected");
 
       $('.form-image').css({'opacity': '.5'});
       $('.form-image#' + prefImage).css({'opacity': '1'});
