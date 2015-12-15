@@ -49,8 +49,6 @@ module BlogPoole
 
         @repo = create_jekyll_repo(site_params)
         @site_url = full_repo_url(site_params)
-        sleep(5) # Give GHPages a chance to catch up with api requests
-        final_commit(branch_name)
         check_build_status
         slim :create, layout: :default
       rescue StandardError => e
@@ -254,24 +252,15 @@ module BlogPoole
       'master'
     end
 
-    def final_commit(branch_name)
-      @api.create_contents("#{@repo[:full_name]}",
-                                          '/humans.txt',
-                                          'Final Commit',
-                                          'Thank you for using jekyll.pizza!',
-                                          branch: "#{branch_name}")
-      puts 'making commit'
-      
-    end
-
-    def update_final(branch_name, builds)
-      final_info = @api.contents("#{@repo[:full_name]}", :path => '/humans.txt')
-      @api.update_contents("octokit/octokit.rb",
-                          "/humans.txt",
-                          "New build",
-                          "#{final_info[:sha]}",
-                          "Thank you for using Jekyll.Pizza!#{ '!' * builds }",
-                          :branch => "#{branch_name}")
+    def update_readme(branch_name, builds)
+      readme_info = @api.contents("#{@repo[:full_name]}", path: '/README.md')
+      @api.update_contents("#{@repo[:full_name]}",
+                           '/README.md',
+                           'New build',
+                           "#{readme_info[:sha]}",
+                           "#Thank you for using Jekyll.Pizza#{'!' * builds}",
+                           branch: "#{branch_name}")
+      puts 'Starting new build'
     end
 
     def check_build_status(count = 1)
@@ -285,7 +274,7 @@ module BlogPoole
         check_build_status(builds)
       when 'errored'
         puts "Build status: #{build_status}"
-        update_final(branch_name, builds)
+        update_readme(branch_name, builds)
         builds += 1
         check_build_status(builds)
       else
