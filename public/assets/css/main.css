@@ -2213,6 +2213,15 @@
 				width: 100%;
 			}
 
+		#current-theme {
+			width: 311px;
+			height: 161px;
+			float: right;
+			border: 3px solid #D8E8FF;
+			border-radius: 5px;
+		}
+
+
 /* List */
 
 	ol {
@@ -3197,7 +3206,20 @@
 		}
 
 /* Wrapper */
+	#side-form h2 {
+		margin: 0 0 3px 0;
+	}
 
+	#side-form p {
+		margin: 0 0 5px 0;
+	}
+	#theme-box {
+		float: right;
+	}
+
+	#theme-box p {
+		float: right;
+	}
 	#wrapper > header {
 		padding: 11em 0 2.25em 0 ;
 	}

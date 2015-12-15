@@ -32,12 +32,17 @@ section#wrapper
 
           a class="button" href="#" data-featherlight="#modal-box" style="float: right" Advanced Options
           
-      div
+      div id="side-form"
         a href="http://github.com/#{@user.login}" target="_blank" style="border-bottom: 0 none"
           img src="#{@user.avatar_url}" style="width: 100px; border-radius: 50%;"
         h2 Submit your Order
         p Enter some information about your new blog to get started
+        div id="theme-box"
+          img id="current-theme" src="#{root_url}/images/clean-jekyll.png"
+          p id="theme-text" "Default" theme selected
         br clear="both" 
+
+        
 
       div class="featherlight" id="modal-box"
         div class="featherlight-content" id="modal-content"
@@ -73,14 +78,16 @@ section#wrapper
 
 javascript:
   var prefImage = "clean-jekyll";
-  $('.form-image').click(function(e){
+    $('.form-image').click(function(e){
       e.preventDefault();
       prefImage = $(this).attr('data-id');
 
-
-      /alert(prefImage)/
+      imgName = "#{root_url}/images/"+prefImage+".png";
+      //document.getElementById("current_theme").setAttribute('src', imgName)
+      $('#current-theme').attr("src", imgName);
+      $('#theme-text').text("\""+prefImage+"\""+" theme selected")
     })
-
+  
     
 javascript:
   $(function () {
