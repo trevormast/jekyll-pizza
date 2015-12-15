@@ -261,14 +261,18 @@ module BlogPoole
                            '/README.md',
                            'New build',
                            "#{readme_info[:sha]}",
-                           "#Thank you for using Jekyll.Pizza#{'!' * builds}",
+                           "#Thank you for using Jekyll.Pizza#{'!' * (1 + builds)}",
                            branch: "#{branch_name}")
       puts 'Starting new build'
     end
 
-    def check_build_status(count = 1)
+    def check_build_status(count = 0)
       builds = count
       build_status = @api.pages("#{@repo[:full_name]}")[:status]
+      if builds == 5
+        puts "exceeded build limit: errored #{builds} times."
+        redirect "/new?error=Oops, Something went wrong!" 
+      end
       
       case build_status 
       when 'building'
