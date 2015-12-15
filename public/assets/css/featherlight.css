@@ -81,7 +81,11 @@
     }
 
     #modal-demo-buttons img {
+        padding: 0 0 0 0;
+        margin: 10px 10px 10px 10px;
         display: block;
+        border: 3px solid rgba(255, 255, 255, 0.125);
+        border-radius: 5px;
         opacity: 1;
     }
 
