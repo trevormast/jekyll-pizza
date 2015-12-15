@@ -82,10 +82,10 @@
 
     #modal-demo-buttons img {
         display: block;
-        opacity: .5;
+        opacity: 1;
     }
 
-    #modal-demo-buttons img:hover{
+    /*#modal-demo-buttons img:hover{
         cursor: pointer;
         opacity: 1;
     }
@@ -97,7 +97,8 @@
     #modal-demo-buttons .tile:focus img{
         opacity: 1;
     }
-
+    
+    */
 
     .featherlight a {
         outline: 0;

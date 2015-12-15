@@ -50,26 +50,26 @@ section#wrapper
           div class="featherlight-inner" id="modal-images"
 
             div class="featherlight-inner" id="modal-demo-buttons"
-              a class="tile" href="#" onclick="this.focus()"
-                img class="featherlight-image form-image" src="#{root_url}/images/clean-jekyll.png" data-id="clean-jekyll" 
+              a class="tile" href="#" 
+                img class="featherlight-image form-image" id="clean-jekyll" src="#{root_url}/images/clean-jekyll.png" data-id="clean-jekyll" 
 
               a id="demo-button" class="button" href="https://trevormast.github.io/sample/"  target="_blank" Live Demo 
             
             div class="featherlight-inner" id="modal-demo-buttons"
-              a class="tile" href="#" onclick="this.focus()"
-                img class="featherlight-image form-image" src="#{root_url}/images/flex.png" data-id="flex" 
+              a class="tile" href="#" 
+                img class="featherlight-image form-image" id="flex" src="#{root_url}/images/flex.png" data-id="flex" 
 
               a id="demo-button" class="button" href="http://the-development.github.io/flex/"  target="_blank" Live Demo 
 
             div class="featherlight-inner" id="modal-demo-buttons" 
-              a class="tile" href="#" onclick="this.focus()"
-                img class="featherlight-image form-image" src="#{root_url}/images/compass.png" data-id="compass" 
+              a class="tile" href="#" 
+                img class="featherlight-image form-image" id="compass" src="#{root_url}/images/compass.png" data-id="compass" 
 
               a id="demo-button" class="button" href="http://excentris.net/compass"target="_blank" Live Demo
 
             div class="featherlight-inner" id="modal-demo-buttons"
-              a class="tile" href="#" onclick="this.focus()"
-                img class="featherlight-image form-image" src="#{root_url}/images/brume.png" data-id="brume" 
+              a class="tile" href="#" 
+                img class="featherlight-image form-image" id="brume" src="#{root_url}/images/brume.png" data-id="brume" 
               
               a id="demo-button" class="button" href="http://aigarsdz.github.io/brume/" target="_blank" Live Demo    
 
@@ -83,9 +83,13 @@ javascript:
       prefImage = $(this).attr('data-id');
 
       imgName = "#{root_url}/images/"+prefImage+".png";
-      //document.getElementById("current_theme").setAttribute('src', imgName)
       $('#current-theme').attr("src", imgName);
-      $('#theme-text').text("\""+prefImage+"\""+" theme selected")
+      $('#theme-text').text("\""+prefImage+"\""+" theme selected");
+
+      $('.form-image').css({'opacity': '.5'});
+      $('.form-image#' + prefImage).css({'opacity': '1'});
+      
+
     })
   
     

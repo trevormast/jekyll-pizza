@@ -3206,19 +3206,25 @@
 		}
 
 /* Wrapper */
+	#side-form {
+		max-width: 50%;
+	}
 	#side-form h2 {
 		margin: 0 0 3px 0;
 	}
 
 	#side-form p {
-		margin: 0 0 5px 0;
+		margin: 0 0 15px 0;
 	}
 	#theme-box {
+		max-width: 100%;
 		float: right;
 	}
 
 	#theme-box p {
-		float: right;
+		text-align: right;
+		width: auto;
+		
 	}
 	#wrapper > header {
 		padding: 11em 0 2.25em 0 ;
