@@ -30,14 +30,19 @@ section#wrapper
 
           input type="submit" value="Create"
 
-          a class="button" href="#" data-featherlight="#modal-box" style="float: right" Advanced Options
+          a class="button" href="#" data-featherlight="#modal-box" style="float: right" Theme Options
           
-      div
+      div id="side-form"
         a href="http://github.com/#{@user.login}" target="_blank" style="border-bottom: 0 none"
           img src="#{@user.avatar_url}" style="width: 100px; border-radius: 50%;"
         h2 Submit your Order
         p Enter some information about your new blog to get started
+        div id="theme-box"
+          h2 Theme
+          img id="current-theme" src="#{root_url}/images/clean-jekyll.png"
         br clear="both" 
+
+        
 
       div class="featherlight" id="modal-box"
         div class="featherlight-content" id="modal-content"
@@ -45,26 +50,26 @@ section#wrapper
           div class="featherlight-inner" id="modal-images"
 
             div class="featherlight-inner" id="modal-demo-buttons"
-              a class="tile" href="#" onclick="this.focus()"
-                img class="featherlight-image form-image" src="#{root_url}/images/clean-jekyll.png" data-id="clean-jekyll" 
+              a class="tile" href="#" 
+                img class="featherlight-image form-image" id="clean-jekyll" src="#{root_url}/images/clean-jekyll.png" data-id="clean-jekyll" 
 
               a id="demo-button" class="button" href="https://trevormast.github.io/sample/"  target="_blank" Live Demo 
             
             div class="featherlight-inner" id="modal-demo-buttons"
-              a class="tile" href="#" onclick="this.focus()"
-                img class="featherlight-image form-image" src="#{root_url}/images/flex.png" data-id="flex" 
+              a class="tile" href="#" 
+                img class="featherlight-image form-image" id="flex" src="#{root_url}/images/flex.png" data-id="flex" 
 
               a id="demo-button" class="button" href="http://the-development.github.io/flex/"  target="_blank" Live Demo 
 
             div class="featherlight-inner" id="modal-demo-buttons" 
-              a class="tile" href="#" onclick="this.focus()"
-                img class="featherlight-image form-image" src="#{root_url}/images/compass.png" data-id="compass" 
+              a class="tile" href="#" 
+                img class="featherlight-image form-image" id="compass" src="#{root_url}/images/compass.png" data-id="compass" 
 
               a id="demo-button" class="button" href="http://excentris.net/compass"target="_blank" Live Demo
 
             div class="featherlight-inner" id="modal-demo-buttons"
-              a class="tile" href="#" onclick="this.focus()"
-                img class="featherlight-image form-image" src="#{root_url}/images/brume.png" data-id="brume" 
+              a class="tile" href="#" 
+                img class="featherlight-image form-image" id="brume" src="#{root_url}/images/brume.png" data-id="brume" 
               
               a id="demo-button" class="button" href="http://aigarsdz.github.io/brume/" target="_blank" Live Demo    
 
@@ -73,14 +78,19 @@ section#wrapper
 
 javascript:
   var prefImage = "clean-jekyll";
-  $('.form-image').click(function(e){
+    $('.form-image').click(function(e){
       e.preventDefault();
       prefImage = $(this).attr('data-id');
 
+      imgName = "#{root_url}/images/"+prefImage+".png";
+      $('#current-theme').attr("src", imgName);
 
-      /alert(prefImage)/
+      $('.form-image').css({'opacity': '.5'});
+      $('.form-image#' + prefImage).css({'opacity': '1'});
+      
+
     })
-
+  
     
 javascript:
   $(function () {
