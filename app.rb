@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/auth/github'
 require './lib/view_helpers'
 require 'rack/ssl-enforcer'
+require 'dweet'
 require 'pry' if AppEnv.development?
 
 module BlogPoole
@@ -30,6 +31,7 @@ module BlogPoole
       @flash << params[:error] if params[:error]
       authenticate!
       setup_user
+      dweet_login
 
       slim :new, layout: :default
     end
@@ -52,6 +54,7 @@ module BlogPoole
         sleep(5) # Give GHPages a chance to catch up with api requests
         final_commit(branch_name, 'humans')
         check_build_status
+        dweet_creation
         slim :create, layout: :default
       rescue StandardError => e
         # TODO: improve logging, error handling.. issue #
@@ -280,6 +283,44 @@ module BlogPoole
       else
         puts 'BUILD COMPLETE!'
       end
+    end
+
+    def dweet_login
+      thing = Dweet::Thing.new 'JekyllPizzaBlogs'
+      begin
+        count = thing.last.content['logins']
+      rescue NoMethodError
+        count = 0
+      end
+      count ||= 0
+      status = Dweet::Dweet.new
+      status.content = { logins: (count + 1) }
+      result_status = thing.publish status
+    end
+
+    def dweet_creation
+      thing = Dweet::Thing.new 'JekyllPizzaBlogCreations'
+      begin
+        count = thing.last.content['created_success']
+      rescue NoMethodError
+        count = 0
+      end
+
+      begin
+        theme_count = thing.last.content[site_params['theme']]
+      rescue NoMethodError
+        theme_count = 0
+      end
+
+      count ||= 0
+      theme_count ||= 0
+
+      status = Dweet::Dweet.new
+      status.content = { 
+        created_success: (count + 1),
+        site_params['theme'] => (theme_count + 1)
+      }
+      result_status = thing.publish status
     end
   end
 end
