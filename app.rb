@@ -213,7 +213,7 @@ module BlogPoole
       commit_message = "Creates #{remote_path}"
       puts "committing: #{full_path}"
       sha_new_commit = @api.create_commit(repo_url, commit_message, sha_new_tree, sha_latest_commit).sha
-      updated_ref = @api.update_ref(repo_url, @ref, sha_new_commit)
+      @api.update_ref(repo_url, @ref, sha_new_commit)
       sha_new_commit
     end
 
