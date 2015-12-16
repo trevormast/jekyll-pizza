@@ -296,6 +296,7 @@ module BlogPoole
       status = Dweet::Dweet.new
       status.content = { logins: (count + 1) }
       result_status = thing.publish status
+      puts "Dweeted: #{result_status}"
     end
 
     def dweet_creation
@@ -321,6 +322,7 @@ module BlogPoole
         site_params['theme'] => (theme_count + 1)
       }
       result_status = thing.publish status
+      puts "Dweeted: #{result_status}"
     end
   end
 end
