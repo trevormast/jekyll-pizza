@@ -1,5 +1,5 @@
-require "spec_helper"
-require "app"
+require 'spec_helper'
+require 'app'
 
 Describe App do
     
