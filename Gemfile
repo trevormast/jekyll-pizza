@@ -8,6 +8,7 @@ gem 'faker'
 gem 'coffee-script'
 gem 'rack-ssl-enforcer'
 gem 'puma'
+gem 'dweet', github: 'vannell/ruby-dweetio'
 
 group :development do
   gem 'jekyll', '~> 3.0.0'

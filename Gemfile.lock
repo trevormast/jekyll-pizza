@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/vannell/ruby-dweetio.git
+  revision: 5c31542d2b9874b002b93e220e944dd3317b3f91
+  specs:
+    dweet (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -113,6 +119,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-script
   dotenv
+  dweet!
   faker
   jekyll (~> 3.0.0)
   pry
