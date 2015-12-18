@@ -271,7 +271,7 @@ module BlogPoole
       build_status = @api.pages("#{@repo[:full_name]}")[:status]
       if builds == 5
         puts "exceeded build limit: errored #{builds} times."
-        redirect "/new?error=Oops, Something went wrong!" 
+        redirect '/new?error=Oops, Something went wrong!'
       end
       
       case build_status 
