@@ -51,8 +51,6 @@ module BlogPoole
 
         @repo = create_jekyll_repo(site_params)
         @site_url = full_repo_url(site_params)
-        sleep(5) # Give GHPages a chance to catch up with api requests
-        final_commit(branch_name, 'humans')
         check_build_status
         dweet_creation
         slim :create, layout: :default
@@ -257,19 +255,24 @@ module BlogPoole
       'master'
     end
 
-    def final_commit(branch_name, file_name)
-      @api.create_contents("#{@repo[:full_name]}",
-                           "/#{file_name}.txt",
-                           'Final Commit',
-                           'Thank you for using jekyll.pizza!',
+    def update_readme(branch_name, builds)
+      readme_info = @api.contents("#{@repo[:full_name]}", path: '/README.md')
+      @api.update_contents("#{@repo[:full_name]}",
+                           '/README.md',
+                           'New build',
+                           "#{readme_info[:sha]}",
+                           "#Thank you for using Jekyll.Pizza#{'!' * (1 + builds)}",
                            branch: "#{branch_name}")
-      puts 'making commit'
-      
+      puts 'Starting new build'
     end
 
     def check_build_status(count = 0)
       builds = count
       build_status = @api.pages("#{@repo[:full_name]}")[:status]
+      if builds == 5
+        puts "exceeded build limit: errored #{builds} times."
+        redirect '/new?error=Oops, Something went wrong!'
+      end
       
       case build_status 
       when 'building'
@@ -277,7 +280,8 @@ module BlogPoole
         sleep(5) # Give GHPages a chance to catch up with api requests
         check_build_status(builds)
       when 'errored'
-        final_commit(branch_name, builds)
+        puts "Build status: #{build_status}"
+        update_readme(branch_name, builds)
         builds += 1
         check_build_status(builds)
       else
