@@ -23,6 +23,8 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     colorator (0.1)
+    diff-lcs (1.2.5)
+    docile (1.1.5)
     dotenv (2.0.2)
     execjs (2.6.0)
     faker (1.6.1)
@@ -68,6 +70,8 @@ GEM
     rack-protection (1.5.3)
       rack
     rack-ssl-enforcer (0.2.9)
+    rack-test (0.6.3)
+      rack (>= 1.0)
     rainbow (2.0.0)
     rake (10.4.2)
     rb-fsevent (0.9.6)
@@ -76,6 +80,19 @@ GEM
     rerun (0.11.0)
       listen (~> 3.0)
     rouge (1.10.1)
+    rspec (3.4.0)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+    rspec-core (3.4.1)
+      rspec-support (~> 3.4.0)
+    rspec-expectations (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
     rubocop (0.35.1)
       astrolabe (~> 1.3)
       parser (>= 2.2.3.0, < 3.0)
@@ -89,6 +106,11 @@ GEM
     sawyer (0.6.0)
       addressable (~> 2.3.5)
       faraday (~> 0.8, < 0.10)
+    simplecov (0.11.1)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -125,10 +147,13 @@ DEPENDENCIES
   pry
   puma
   rack-ssl-enforcer
+  rack-test
   rake
   rerun
+  rspec
   rubocop
   sass
+  simplecov
   sinatra
   sinatra_auth_github
   slim
