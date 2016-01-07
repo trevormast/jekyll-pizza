@@ -62,24 +62,6 @@ module BlogPoole
       end
     end
 
-    # get '/test' do
-    #   @flash ||= []
-    #   authenticate!
-    #   setup_user
-      
-    #   self.params = {"site"=>
-    #     {"title"=>"", "description"=>"", "root_url"=>"amoose.github.io", "path"=>""}}
-
-    #   # todo improve validations
-    #   if @api.repository?(user_repo_path(site_params))
-    #     redirect "/new?error=Sorry, that repository already exists, pick a new path!"
-    #   end
-
-    #   @repo = create_jekyll_repo(site_params)
-    #   @site_url = full_repo_url(site_params)
-    #   slim :create, layout: :default
-    # end
-
     get '/create' do
       redirect '/new'
     end
@@ -93,6 +75,11 @@ module BlogPoole
     get '/thanks' do
       @flash ||= []
       slim :thanks, layout: :default
+    end
+
+    get '/attribution' do
+      @flash ||= []
+      slim :attribution, layout: :default
     end
 
     get '/donate' do
@@ -123,13 +110,6 @@ module BlogPoole
       @user ||= github_user
       @api ||= @user.api
       @existing_root_repo ||= check_root_repo_status
-      if @user.email.nil?
-        session[:error] = 'Please confirm your GitHub account first. <br>' \
-                          'For more information, please visit:<br>' \
-                          '<a href="https://help.github.com/articles/verifying-your-email-address/">' \
-                          'https://help.github.com/articles/verifying-your-email-address/</a>'
-        redirect '/failure'
-      end
     end
 
     def check_root_repo_status

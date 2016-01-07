@@ -9,6 +9,7 @@ gem 'coffee-script'
 gem 'rack-ssl-enforcer'
 gem 'puma'
 gem 'dweet', github: 'vannell/ruby-dweetio'
+gem 'sass'
 
 group :development do
   gem 'jekyll', '~> 3.0.0'

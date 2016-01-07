@@ -10,11 +10,11 @@ section#wrapper
 
           .field
             label Blog Title
-            input name="site[title]" type="text" placeholder="#{Faker::Company.catch_phrase}"
+            input name="site[title]" type="text" placeholder="#{Faker::Hipster.sentence(3)}"
 
           .field
             label Description
-            textarea name="site[description]" placeholder="#{Faker::Company.bs.capitalize + ' and ' + Faker::Company.bs}"
+            textarea name="site[description]" placeholder="#{Faker::Hipster.sentence}"
 
 
           .field
@@ -24,7 +24,7 @@ section#wrapper
               input name="site[root_url]" type="text" readonly="readonly" value="#{@user.login}.github.io" style="width: 100%"
             div style="display: block;"
               label for="path"= "Path #{@existing_root_repo == true ? '(Required)' : '(Optional)'}"
-              input#path name="site[path]" type="text" value="" style="width: 50%" placeholder="/best-blog-ever"
+              input#path name="site[path]" type="text" value="" style="width: 50%" placeholder="/#{Faker::Hipster.words(2).join('-')}"
 
             input type="hidden" name="site[theme]" id="theme"
 

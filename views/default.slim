@@ -12,9 +12,10 @@ html lang="en"
     that creates custom Jekyll blogs and commits them to GitHub." property="og:description" 
 
     /![if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]
-    link rel="stylesheet" href="/assets/css/main.css"
+    link rel="stylesheet" href="/stylesheets/main.css"
     link rel="stylesheet" href="/auth-buttons.css"
     link rel="stylesheet" href="/default.css"
+    link rel="stylesheet" href="//fonts.googleapis.com/css?family=Work+Sans:400,900,200|Playfair+Display:400,900"
     link rel="stylesheet" href="/assets/css/featherlight.css" 
     /![if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]
     /![if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]
@@ -51,12 +52,13 @@ html lang="en"
           ul.contact
             li.fa-home 
               a href="#{root_url}" jekyll.pizza
+            li.fa-creative-commons
+              a href="#{root_url}attribution" attribution
             li.fa-envelope
               a href="mailto:info@jekyll.pizza" info@jekyll.pizza
             li.fa-twitter
               a href="https://twitter.com/jekyllpizza" target="_blank" twitter.com/jekyllpizza
-            li.fa.fa-creative-commons
-              a href="#{root_url}attribution/" attribution
+            
             / someday..
             / li.fa-btc
             /   a href="#{root_url}donate/" donate
@@ -73,7 +75,7 @@ html lang="en"
         windowHeightz0r = ->
           $('.screen-pane').each ->
             navH = (parseInt($(this).css('paddingBottom')) / 2)
-            console.log(navH)
+            # console.log(navH)
             winH = $(window).height()
             paneH = winH - navH
             $(this).css('minHeight',parseInt(paneH)+'px')
