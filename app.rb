@@ -4,6 +4,7 @@ require './lib/view_helpers'
 require 'rack/ssl-enforcer'
 require 'dweet'
 require 'pry' if AppEnv.development?
+require 'httplog' if AppEnv.development?
 
 module JekyllPizza
   class App < Sinatra::Base
@@ -137,7 +138,7 @@ module JekyllPizza
 
     def commit_new_jekyll(dir, user_options)
       repo_url = repository_url(user_options)
-      repo = @api.create_repository(repo_url, auto_init: true)
+      repo = @api.create_repository(repo_url, auto_init: true) # here
       full_repo_path = repo.full_name
       @dir = dir
 

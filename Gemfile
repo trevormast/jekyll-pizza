@@ -17,6 +17,7 @@ group :development do
   gem 'rubocop', require: false
   gem 'dotenv'
   gem 'rake'
+  gem 'httplog'
 end
 
 group :development, :test do
@@ -28,4 +29,5 @@ end
 group :test do
 	gem 'simplecov', require: false
 	gem 'webmock'
+  gem 'json'
 end
