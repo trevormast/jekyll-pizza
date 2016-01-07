@@ -1,4 +1,4 @@
-module BlogPoole
+module JekyllPizza
   module ViewHelpers
     include AppEnv
     def root_url

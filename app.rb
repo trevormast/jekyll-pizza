@@ -5,7 +5,7 @@ require 'rack/ssl-enforcer'
 require 'dweet'
 require 'pry' if AppEnv.development?
 
-module BlogPoole
+module JekyllPizza
   class App < Sinatra::Base
     use Rack::SslEnforcer if AppEnv.production?
     set :session_secret, ENV['RACK_SESSION_SECRET']

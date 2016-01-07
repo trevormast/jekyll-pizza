@@ -11,4 +11,4 @@ use Sass::Plugin::Rack
 # use for static file hosting
 # use Rack::Static, :urls => ["/css", "/img", "/js"], :root => "public"
 
-run BlogPoole::App
+run JekyllPizza::App
