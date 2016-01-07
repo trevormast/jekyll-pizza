@@ -1,7 +1,13 @@
 require 'spec_helper'
+require 'sinatra/auth/github/test/test_helper'
 
 describe 'App' do
-	
+  include Warden::Test::Helpers
+
+  after do
+    Warden.test_reset!
+  end
+
 	describe "GET '/'" do
     it "loads homepage" do
       get '/'
@@ -11,12 +17,10 @@ describe 'App' do
 	
 	describe "GET '/new'" do
     it "loads new page" do
+      login_as Sinatra::Auth::Github::Test::Helper::User.make
       get '/new'
-      user = double('user')
-  		allow(request(7).env['warden']).to receive(:authenticate!).and_return(user)
-  		allow(controller).to receive(:current_user).and_return(user)
-      # stub_request(:get, "www.github.com").to_return(Warden::GitHub::User.new)
       expect(last_response).to be_ok
+      expect(last_response.body).to include('test_user.github.io')
     end
   end
 
