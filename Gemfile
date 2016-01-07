@@ -16,13 +16,13 @@ group :development do
   gem 'rerun'
   gem 'rubocop', require: false
   gem 'dotenv'
-  gem 'pry'
   gem 'rake'
 end
 
 group :development, :test do
 	gem 'rspec'
 	gem 'rack-test'
+  gem 'pry'
 end
 
 group :test do

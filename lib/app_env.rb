@@ -7,6 +7,10 @@ module AppEnv
     ENV['RACK_ENV'] && ENV['RACK_ENV'] == 'production'
   end
 
+  def self.test?
+    ENV['RACK_ENV'] && ENV['RACK_ENV'] == 'test'
+  end
+
   def self.protocol
     AppEnv.development? ? 'http' : 'https'
   end

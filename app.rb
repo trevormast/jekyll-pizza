@@ -269,6 +269,7 @@ module JekyllPizza
     end
 
     def dweet_login
+      return unless AppEnv.production?
       thing = Dweet::Thing.new 'JekyllPizzaBlogs'
       begin
         count = thing.last.content['logins']
@@ -279,10 +280,11 @@ module JekyllPizza
       status = Dweet::Dweet.new
       status.content = { logins: (count + 1) }
       result_status = thing.publish status
-      puts "Dweeted: #{result_status}"
+      puts "Dweeted: #{result_status.inspect}"
     end
 
     def dweet_creation
+      return unless AppEnv.production?
       thing = Dweet::Thing.new 'JekyllPizzaBlogCreations'
       begin
         count = thing.last.content['created_success']
@@ -305,7 +307,7 @@ module JekyllPizza
         site_params['theme'] => (theme_count + 1)
       }
       result_status = thing.publish status
-      puts "Dweeted: #{result_status}"
+      puts "Dweeted: #{result_status.inspect}"
     end
   end
 end
