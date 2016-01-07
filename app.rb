@@ -29,7 +29,6 @@ module JekyllPizza
       # TODO: improve flash messaging
       @flash ||= []
       @flash << params[:error] if params[:error]
-      authenticate!
       setup_user
       dweet_login
 
@@ -38,7 +37,6 @@ module JekyllPizza
 
     post '/create' do
       @flash ||= []
-      authenticate!
       setup_user
       @failures ||= 0
 
@@ -106,6 +104,7 @@ module JekyllPizza
     end
 
     def setup_user
+      authenticate!
       @flash << session.dete(:error) if session[:error]
       @user ||= github_user
       @api ||= @user.api
