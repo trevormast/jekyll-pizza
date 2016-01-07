@@ -1,6 +1,6 @@
 require 'rack/test'
 require 'rspec'
-# require 'webmock/rspec'
+require 'webmock/rspec'
 require 'dotenv'
 require 'warden'
 require 'sinatra/auth/github/test/test_helper'
@@ -10,6 +10,7 @@ SimpleCov.start
 Dotenv.load
 
 # WebMock.disable_net_connect!(allow_localhost: true)
+# WebMock.allow_net_connect!
 
 require File.expand_path '../../preload_env.rb', __FILE__
 
@@ -101,4 +102,5 @@ RSpec.configure do |config|
   # # test failures related to randomization by passing the same `--seed` value
   # # as the one that triggered the failure.
   # Kernel.srand config.seed
+  after { Warden.test_reset! }
 end
