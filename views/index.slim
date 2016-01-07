@@ -2,25 +2,42 @@
 section#banner.screen-pane
   .inner
     .logo
-      img src="images/logo.png"
-      span style="color: #c00; font-weight: bold;" BETA
+      / h1 Jekyll.<img src="/images/pizza.png" class="large pizza" alt="Yes, this is a pizza" />
+      h1 Jekyll.pizza
 
-    h2 Fresh.Jekyll...Blogs 
-    
-    p ...simple, static, blog-aware websites...<em>in seconds</em>
-    br
-    a.btn-auth.btn-github.large href="/new"
-      | Sign in with <b>GitHub</b>
+    / h2.tagline.darkie Freshly baked blogs
+    p.darkie The new standard for starting a blog with free hosting from <a href="https://github.com" target="_blank" class="github-text">GitHub</b>
+    a.large.sign-in href="/new"
+      | Start
 
 section#wrapper
   section#one.wrapper.spotlight.style1
     .inner
-      a.image href="http://jekyllrb.com" target="_blank"
-        img alt="jekyll" src="images/jekyll01.jpg"
       .content
-        h2.major What is Jekyll?
-        p Jekyll creates <em>simple</em>, <em>static</em>, <em>blog aware</em> websites using the markup language of your choice.  It's easy to customize layouts, post new articles, and configure settings
-        a.special href="http://jekyllrb.com/docs/home/" target="_blank" Learn more
+        h2 How does it work?
+        hr
+
+
+        .marketing
+          h3 1. Sign in with GitHub
+          p Help us help you.
+
+          h3 2. Come up with a witty name
+          p= "What do you want to blog about? #{Faker::Team.creature}? #{Faker::Team.creature}? #{Faker::Team.creature}?"
+
+          h3 3. Presto!
+          p Your new website is ready for you to add your content!
+
+
+
+  / section#one.wrapper.spotlight.style1
+  /   .inner
+  /     a.image href="http://jekyllrb.com" target="_blank"
+  /       img alt="jekyll" src="images/jekyll01.jpg"
+  /     .content
+  /       h2.major What is Jekyll?
+  /       p Jekyll creates <em>simple</em>, <em>static</em>, <em>blog aware</em> websites using the markup language of your choice.  It's easy to customize layouts, post new articles, and configure settings
+  /       a.special href="http://jekyllrb.com/docs/home/" target="_blank" Learn more
 
   section#two.wrapper.alt.spotlight.style2
     .inner
@@ -34,12 +51,12 @@ section#wrapper
 
   section#three.wrapper.spotlight.style3
     .inner
-      a.image href="http://dillinger.io" target="_blank"
+      a.image href="http://prose.io" target="_blank"
         img alt="prose.io" src="images/services.jpg"
       .content
-        h2.major No software to install
+        h2.major No software
         p Use the editor of your choice and focus on your <em>content</em>.
-        / a.special href="http://prose.io" Try Prose
+        a.special href="http://prose.io" target="_blank" Try Prose
       
 
 javascript:

@@ -1,4 +1,4 @@
-## Blog Poole
+## Jekyll.pizza
 
 #### Getting Started
 
@@ -23,4 +23,4 @@
 
 #### License
 
-See [LICENSE.md](https://github.com/trevormast/blog-poole/blob/master/LICENSE.md)
+See [LICENSE.md](https://github.com/trevormast/jekyll-pizza/blob/master/LICENSE.md)

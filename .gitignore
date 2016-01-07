@@ -2,3 +2,6 @@
 .git
 log
 .env
+.bundle
+.sass-cache
+coverage
