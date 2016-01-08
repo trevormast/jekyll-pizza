@@ -35,7 +35,7 @@ describe 'App' do
       get '/create'
       expect(last_response).to be_redirect
       follow_redirect!
-      expect(last_request.url).to eq('http://example.org/new')
+      expect(last_request.path).to eq('/new')
     end
   end
 
