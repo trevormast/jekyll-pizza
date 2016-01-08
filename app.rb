@@ -138,7 +138,7 @@ module JekyllPizza
 
     def commit_new_jekyll(dir, user_options)
       repo_url = repository_url(user_options)
-      repo = @api.create_repository(repo_url, auto_init: true) # here
+      repo = @api.create_repository(repo_url, auto_init: true) 
       full_repo_path = repo.full_name
       @dir = dir
 
@@ -172,7 +172,7 @@ module JekyllPizza
         scan_folder(full_path, repo_url, @latest_sha, sha_base_tree) if File.directory?(full_path)
         next if File.directory?(full_path)
 
-        sha_latest_commit = @api.ref(repo_url, @ref).object.sha
+        sha_latest_commit = @api.ref(repo_url, @ref).object.sha ###### here
         sha_base_tree = @api.commit(repo_url, sha_latest_commit).commit.tree.sha
 
         sha_new_commit = create_commit(item, dir, repo_url, sha_latest_commit, sha_base_tree)
