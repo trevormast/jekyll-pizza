@@ -20,7 +20,7 @@ require File.expand_path '../../app.rb', __FILE__
 
 module RSpecMixin
   include Rack::Test::Methods
-  def app() BlogPoole::App end
+  def app() JekyllPizza::App end
 end
 
 RSpec.configure do |config|
