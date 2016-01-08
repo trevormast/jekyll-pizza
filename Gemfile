@@ -21,13 +21,13 @@ group :development do
 end
 
 group :development, :test do
-	gem 'rspec'
-	gem 'rack-test'
+  gem 'rspec'
+  gem 'rack-test'
   gem 'pry'
 end
 
 group :test do
-	gem 'simplecov', require: false
-	gem 'webmock'
+  gem 'simplecov', require: false
+  gem 'webmock'
   gem 'json'
 end
