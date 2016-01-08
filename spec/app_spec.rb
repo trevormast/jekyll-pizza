@@ -34,7 +34,7 @@ describe 'App' do
     it 'redirects to /new page' do
       get '/create'
       expect(last_response).to be_redirect
-      follow_redirect!
+      # follow_redirect!
       expect(last_request.path).to eq('/new')
     end
   end
