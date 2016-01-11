@@ -56,15 +56,15 @@ describe 'App' do
       expect(a_request(:get, 'https://api.github.com/repos/test_user/test_user.github.io')).to have_been_made.at_least_once
       expect(a_request(:get, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
       expect(a_request(:post, 'https://api.github.com/user/repos')).to have_been_made.at_least_once
-      expect(a_request(:get, "https://api.github.com/repos/test_user/path/git/refs/heads/master")).to have_been_made.at_least_once
-      expect(a_request(:post, "https://api.github.com/repos/test_user/path/git/refs")).to have_been_made.at_least_once
-      expect(a_request(:get, "https://api.github.com/repos/test_user/path/commits/c0879ec586f927218eb41e5e51578afc0e71cd10")).to have_been_made.at_least_once
-      expect(a_request(:get, "https://api.github.com/repos/test_user/path/git/refs/heads/gh-pages")).to have_been_made.at_least_once
-      expect(a_request(:post, "https://api.github.com/repos/test_user/path/git/blobs")).to have_been_made.at_least_once
-      expect(a_request(:post, "https://api.github.com/repos/test_user/path/git/trees")).to have_been_made.at_least_once
-      expect(a_request(:post, "https://api.github.com/repos/test_user/path/git/commits")).to have_been_made.at_least_once
-      expect(a_request(:patch, "https://api.github.com/repos/test_user/path/git/refs/heads/gh-pages")).to have_been_made.at_least_once
-      expect(a_request(:patch, "https://api.github.com/repos/test_user/path")).to have_been_made.at_least_once
+      expect(a_request(:get, 'https://api.github.com/repos/test_user/path/git/refs/heads/master')).to have_been_made.at_least_once
+      expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/refs')).to have_been_made.at_least_once
+      expect(a_request(:get, 'https://api.github.com/repos/test_user/path/commits/c0879ec586f927218eb41e5e51578afc0e71cd10')).to have_been_made.at_least_once
+      expect(a_request(:get, 'https://api.github.com/repos/test_user/path/git/refs/heads/gh-pages')).to have_been_made.at_least_once
+      expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/blobs')).to have_been_made.at_least_once
+      expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/trees')).to have_been_made.at_least_once
+      expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/commits')).to have_been_made.at_least_once
+      expect(a_request(:patch, 'https://api.github.com/repos/test_user/path/git/refs/heads/gh-pages')).to have_been_made.at_least_once
+      expect(a_request(:patch, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
       expect(a_request(:get, 'https://api.github.com/repos/test_user/path/pages')).to have_been_made.at_least_once
 
       expect(last_response).to be_ok
@@ -75,7 +75,7 @@ describe 'App' do
         get '/failure'
   
         expect(last_response).to be_ok
-        expect(last_response.body).to include("Error")
+        expect(last_response.body).to include('Error')
       end
   
       describe "GET '/thanks'" do
@@ -83,7 +83,7 @@ describe 'App' do
           get '/thanks'
     
           expect(last_response).to be_ok
-          expect(last_response.body).to include("Thank")
+          expect(last_response.body).to include('Thank')
         end
       end
   
@@ -93,7 +93,6 @@ describe 'App' do
     
           expect(last_response).to be_ok
           # expect(last_response.body).to include("Possible")
-
         end
       end
   
@@ -102,13 +101,10 @@ describe 'App' do
           get '/donate'
     
           expect(last_response).to be_ok
-          expect(last_response.body).to include("Donate")
-
+          expect(last_response.body).to include('Donate')
         end
       end
     end
     
   end
 end
-
-
