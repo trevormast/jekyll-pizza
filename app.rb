@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/auth/github'
 require './lib/view_helpers'
+require './lib/dweet_pizza'
 require 'rack/ssl-enforcer'
 require 'dweet'
 require 'pry' if AppEnv.development?
@@ -18,6 +19,8 @@ module JekyllPizza
     set :github_options,       scopes: 'public_repo',
                                secret: ENV['GITHUB_CLIENT_SECRET'],
                                client_id: ENV['GITHUB_CLIENT_ID']
+
+    include BlogPoole::DweetPizza
 
     register Sinatra::Auth::Github
 
@@ -267,48 +270,6 @@ module JekyllPizza
       else
         puts 'BUILD COMPLETE!'
       end
-    end
-
-    def dweet_login
-      return unless AppEnv.production?
-      thing = Dweet::Thing.new 'JekyllPizzaBlogs'
-      begin
-        count = thing.last.content['logins']
-      rescue NoMethodError
-        count = 0
-      end
-      count ||= 0
-      status = Dweet::Dweet.new
-      status.content = { logins: (count + 1) }
-      result_status = thing.publish status
-      puts "Dweeted: #{result_status.inspect}"
-    end
-
-    def dweet_creation
-      return unless AppEnv.production?
-      thing = Dweet::Thing.new 'JekyllPizzaBlogCreations'
-      begin
-        count = thing.last.content['created_success']
-      rescue NoMethodError
-        count = 0
-      end
-
-      begin
-        theme_count = thing.last.content[site_params['theme']]
-      rescue NoMethodError
-        theme_count = 0
-      end
-
-      count ||= 0
-      theme_count ||= 0
-
-      status = Dweet::Dweet.new
-      status.content = { 
-        created_success: (count + 1),
-        site_params['theme'] => (theme_count + 1)
-      }
-      result_status = thing.publish status
-      puts "Dweeted: #{result_status.inspect}"
     end
   end
 end
