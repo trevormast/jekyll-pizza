@@ -8,6 +8,7 @@ require 'simplecov'
 require 'pry'
 SimpleCov.start do
   add_filter '/spec/' 
+  add_filter '/lib/dweet_pizza.rb'
 end
 Dotenv.load
 

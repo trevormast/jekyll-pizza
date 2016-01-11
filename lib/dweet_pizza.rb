@@ -1,6 +1,6 @@
 module BlogPoole
-	module DweetPizza
-		def dweet_login
+  module DweetPizza
+    def dweet_login
       return unless AppEnv.production?
       thing = Dweet::Thing.new 'JekyllPizzaBlogs'
       begin
