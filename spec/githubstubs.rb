@@ -62,8 +62,29 @@ module GitHubStubs
       to_return(status: 200, body: '', headers: {})
 
     # check build
-    build_status = File.read('./spec/json/build_status.json')
+    building_status = File.read('./spec/json/building_status.json')
+    built_status = File.read('./spec/json/built_status.json')
+    errored_status = File.read('./spec/json/errored_status.json')
     WebMock.stub_request(:get, 'https://api.github.com/repos/test_user/path/pages').
-      to_return(status: 200, body: build_status, headers: { 'Content-Type' => 'application/json' })
+      to_return(status: 200, body: building_status, headers: { 'Content-Type' => 'application/json' }).then.
+      to_return(status: 200, body: errored_status, headers: { 'Content-Type' => 'application/json' }).then.
+      to_return(status: 200, body: built_status, headers: {'Content-Type' => 'application/json' })
+
+    create_contents = File.read('./spec/json/create_contents.json')
+    WebMock.stub_request(:get, "https://api.github.com/repos/test_user/path/contents/README.md").
+         to_return(:status => 201, :body => create_contents, :headers => {'Content-Type' => 'application/json'})
+
+    WebMock.stub_request(:put, "https://api.github.com/repos/test_user/path/contents/README.md").
+         with(:body => "{\"branch\":\"gh-pages\",\"sha\":\"\",\"content\":\"I1RoYW5rIHlvdSBmb3IgdXNpbmcgSmVreWxsLlBpenphIQ==\",\"message\":\"New build\"}",
+              :headers => {'Accept'=>'application/vnd.github.v3+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/json', 'User-Agent'=>'Octokit Ruby Gem 4.1.1'}).
+         to_return(:status => 200, :body => "", :headers => {})
+
+    # check build again
+    
+    # WebMock.stub_request(:get, 'https://api.github.com/repos/test_user/path/pages').
+      # to_return(status: 200, body: built_status, headers: { 'Content-Type' => 'application/json' })
+    # WebMock.stub_request(:get, "https://api.github.com/repos/test_user/path/pages").
+         # with(:headers => {'Accept'=>'application/vnd.github.v3+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/json', 'User-Agent'=>'Octokit Ruby Gem 4.1.1'}).
+         
   end
 end
