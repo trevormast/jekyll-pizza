@@ -269,16 +269,27 @@ module JekyllPizza
       end
     end
 
+    def dweet_status(attribute)
+      dweet_state = YAML.load(File.open('./lib/dweet.yml'))
+      if attribute == 'theme'
+        dweet_state['theme']["#{site_params['theme']}"] += 1
+      else
+        dweet_state[attribute] += 1
+      end
+      File.open('./lib/dweet.yml', 'w') {|f| f.write(dweet_state.to_yaml)}
+      dweet_state[attribute]
+    end
+
     def dweet_login
       thing = Dweet::Thing.new 'JekyllPizzaBlogs'
       begin
-        count = thing.last.content['logins']
+        count = dweet_status('logins')
       rescue NoMethodError
         count = 0
       end
       count ||= 0
       status = Dweet::Dweet.new
-      status.content = { logins: (count + 1) }
+      status.content = { logins: (count) }
       result_status = thing.publish status
       puts "Dweeted: #{result_status}"
     end
@@ -286,13 +297,13 @@ module JekyllPizza
     def dweet_creation
       thing = Dweet::Thing.new 'JekyllPizzaBlogCreations'
       begin
-        count = thing.last.content['created_success']
+        count = dweet_status('created')
       rescue NoMethodError
         count = 0
       end
 
       begin
-        theme_count = thing.last.content[site_params['theme']]
+        theme_count = dweet_status('theme')
       rescue NoMethodError
         theme_count = 0
       end
@@ -302,8 +313,8 @@ module JekyllPizza
 
       status = Dweet::Dweet.new
       status.content = { 
-        created_success: (count + 1),
-        site_params['theme'] => (theme_count + 1)
+        created_success: (count),
+        site_params['theme'] => (theme_count)
       }
       result_status = thing.publish status
       puts "Dweeted: #{result_status}"
