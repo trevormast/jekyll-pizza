@@ -1,8 +1,8 @@
 ---
-logins: 3
-created: 3
+logins: 0
+created: 0
 theme:
-  clean-jekyll: 2
+  clean-jekyll: 0
   flex: 0
   compass: 0
-  brume: 1
+  brume: 0
