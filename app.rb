@@ -276,7 +276,7 @@ module JekyllPizza
       else
         dweet_state[attribute] += 1
       end
-      File.open('./lib/dweet.yml', 'w') {|f| f.write(dweet_state.to_yaml)}
+      File.open('./lib/dweet.yml', 'w') { |f| f.write(dweet_state.to_yaml) }
       dweet_state[attribute]
     end
 
