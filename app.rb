@@ -52,7 +52,7 @@ module JekyllPizza
         @repo = create_jekyll_repo(site_params)
         @site_url = full_repo_url(site_params)
         check_build_status
-        dweet_creation
+        # dweet_creation
         slim :create, layout: :default
       rescue StandardError => e
         # TODO: improve logging, error handling.. issue #
