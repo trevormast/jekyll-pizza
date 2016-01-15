@@ -1,4 +1,4 @@
-https://travis-ci.org/trevormast/jekyll-pizza.svg?branch=master
+<img> https://travis-ci.org/trevormast/jekyll-pizza.svg?branch=master </img>
 ## Jekyll.pizza
 
 #### Getting Started
