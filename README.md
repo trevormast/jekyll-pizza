@@ -4,9 +4,10 @@
 #### Getting Started
 
 1. `bundle` to install application dependencies
-2. `cp .env.example .env` and update values
-3. `rerun rackup` to serve locally and auto-reload
-4. visit http://localhost:9292
+2. [register app with GitHub](https://developer.github.com/v3/oauth/) to obtain client id and secret 
+3. `cp .env.example .env` and update values
+4. `rerun rackup` to serve locally and auto-reload
+5. visit http://localhost:9292
 
 #### Dependencies
 
