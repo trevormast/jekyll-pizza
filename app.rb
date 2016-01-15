@@ -1,9 +1,11 @@
 require 'sinatra'
 require 'sinatra/auth/github'
 require './lib/view_helpers'
+require './lib/dweet_pizza'
 require 'rack/ssl-enforcer'
 require 'dweet'
 require 'pry' if AppEnv.development?
+require 'httplog' if AppEnv.development?
 
 module JekyllPizza
   class App < Sinatra::Base
@@ -18,6 +20,8 @@ module JekyllPizza
                                secret: ENV['GITHUB_CLIENT_SECRET'],
                                client_id: ENV['GITHUB_CLIENT_ID']
 
+    include BlogPoole::DweetPizza
+
     register Sinatra::Auth::Github
 
     get '/' do
@@ -29,7 +33,6 @@ module JekyllPizza
       # TODO: improve flash messaging
       @flash ||= []
       @flash << params[:error] if params[:error]
-      authenticate!
       setup_user
       dweet_login
 
@@ -38,7 +41,6 @@ module JekyllPizza
 
     post '/create' do
       @flash ||= []
-      authenticate!
       setup_user
       @failures ||= 0
 
@@ -106,6 +108,7 @@ module JekyllPizza
     end
 
     def setup_user
+      authenticate!
       @flash << session.dete(:error) if session[:error]
       @user ||= github_user
       @api ||= @user.api
@@ -138,7 +141,7 @@ module JekyllPizza
 
     def commit_new_jekyll(dir, user_options)
       repo_url = repository_url(user_options)
-      repo = @api.create_repository(repo_url, auto_init: true)
+      repo = @api.create_repository(repo_url, auto_init: true) 
       full_repo_path = repo.full_name
       @dir = dir
 
@@ -172,7 +175,7 @@ module JekyllPizza
         scan_folder(full_path, repo_url, @latest_sha, sha_base_tree) if File.directory?(full_path)
         next if File.directory?(full_path)
 
-        sha_latest_commit = @api.ref(repo_url, @ref).object.sha
+        sha_latest_commit = @api.ref(repo_url, @ref).object.sha ###### here
         sha_base_tree = @api.commit(repo_url, sha_latest_commit).commit.tree.sha
 
         sha_new_commit = create_commit(item, dir, repo_url, sha_latest_commit, sha_base_tree)
@@ -267,46 +270,6 @@ module JekyllPizza
       else
         puts 'BUILD COMPLETE!'
       end
-    end
-
-    def dweet_login
-      thing = Dweet::Thing.new 'JekyllPizzaBlogs'
-      begin
-        count = thing.last.content['logins']
-      rescue NoMethodError
-        count = 0
-      end
-      count ||= 0
-      status = Dweet::Dweet.new
-      status.content = { logins: (count + 1) }
-      result_status = thing.publish status
-      puts "Dweeted: #{result_status}"
-    end
-
-    def dweet_creation
-      thing = Dweet::Thing.new 'JekyllPizzaBlogCreations'
-      begin
-        count = thing.last.content['created_success']
-      rescue NoMethodError
-        count = 0
-      end
-
-      begin
-        theme_count = thing.last.content[site_params['theme']]
-      rescue NoMethodError
-        theme_count = 0
-      end
-
-      count ||= 0
-      theme_count ||= 0
-
-      status = Dweet::Dweet.new
-      status.content = { 
-        created_success: (count + 1),
-        site_params['theme'] => (theme_count + 1)
-      }
-      result_status = thing.publish status
-      puts "Dweeted: #{result_status}"
     end
   end
 end

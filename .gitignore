@@ -5,3 +5,5 @@ log
 .bundle
 .sass-cache
 coverage
+/coverage
+
