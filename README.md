@@ -1,3 +1,4 @@
+https://travis-ci.org/trevormast/jekyll-pizza.svg?branch=master
 ## Jekyll.pizza
 
 #### Getting Started
