@@ -4,7 +4,7 @@
 #### Getting Started
 
 1. `bundle` to install application dependencies
-2. `cp .env.example .env` and updates values
+2. `cp .env.example .env` and update values
 3. `rerun rackup` to serve locally and auto-reload
 4. visit http://localhost:9292
 
