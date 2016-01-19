@@ -70,7 +70,7 @@
         closeIcon: "&#10005;",
         loading: "",
         persist: !1,
-        otherClose: "#save-button",
+        otherClose: ".select-button",
         beforeOpen: a.noop,
         beforeContent: a.noop,
         beforeClose: a.noop,
