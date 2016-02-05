@@ -29,19 +29,15 @@
         vertical-align: middle;
         display: inline-block;
         overflow: auto;
-        /* padding: 10px 10px 10px 10px; */
-        /* border-bottom: 25px solid transparent; */
         min-width: 85%;
-        /*margin-left: 5%;
-        margin-right: 5%; */
         min-height: 35%;
-        background: #4c5c96;
+        background: #656565;
         cursor: auto;
         white-space: normal
     }
     .featherlight .featherlight-inner {
         position: relative;
-        background: #4c5c96;
+        background: #656565;
         display: block;
         width: 100%;
         z-index: 9999;
@@ -55,7 +51,7 @@
     }
     .featherlight .featherlight-close-icon {
         position: absolute;
-        z-index: 99999;
+        z-index: 9999;
         top: 0;
         right: 0;
         line-height: 25px;
@@ -69,18 +65,17 @@
     }
     .featherlight .featherlight-image {
         display: inline-block;
-        margin: 0 0 0 0;
-        padding: 10px 10px 10px 10px;
+        margin: 10px 10px 10px 10px;
         max-width: 250px;
         max-height: 200px;
     }
 
-    .featherlight #modal-demo-buttons {
+    .featherlight .modal-demo-buttons {
         display: inline-block;
         width: auto;
     }
 
-    #modal-demo-buttons img {
+    .modal-demo-buttons img {
         padding: 0 0 0 0;
         margin: 10px 10px 10px 10px;
         display: block;
@@ -89,6 +84,35 @@
         opacity: 1;
     }
 
+    .modal-demo-buttons .button {
+        position: absolute;
+        display: none;
+        max-width: 250px;
+        max-height: 100px;
+        box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 1);
+        margin: 10px 10px 10px 10px;
+        min-width: 55%;
+    }
+
+    .modal-demo-buttons .button:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+    .modal-demo-buttons .live-button {
+        top: 6%; 
+        left: 20%;
+        /*z-index: -1;*/
+    }
+
+
+    .modal-demo-buttons .select-button {
+        top: 40%;
+        left: 20%;
+    }
+
+    /*#modal-demo-buttons #live-button {
+        top: 100px;
+        left: 0;
+    }*/
     /*#modal-demo-buttons img:hover{
         cursor: pointer;
         opacity: 1;
@@ -122,7 +146,7 @@
         margin: 10px 10px 10px 10px;    
     }
     
-    .featherlight #demo-button {
+    /*.featherlight #demo-button {
         margin: 0px 10px 10px 10px;  
         width: 90%;  
         padding-top: 3px;
@@ -130,7 +154,7 @@
         max-height: 30px;
         line-height: 30px;
 
-    }
+    }*/
 }
 
 @media only screen and (max-width:1024px) {
