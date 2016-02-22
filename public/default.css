@@ -15,10 +15,11 @@
 }
 #loading i {
   margin-top: 3em;
+  color: #808080;
 }
 #loading p {
   padding: 1em 2em;
-  background: #000;
+  background: #808080;
   box-shadow: 0 0 10px #000;
 }
 #loading p b {
