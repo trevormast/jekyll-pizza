@@ -124,9 +124,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  github-pages (= 51)
-  jekyll
-  json
+  github-pages
 
 BUNDLED WITH
    1.11.2
