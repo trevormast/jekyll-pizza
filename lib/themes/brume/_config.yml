@@ -1,5 +1,5 @@
-markdown: redcarpet
-highlighter: pygments
+markdown: kramdown
+highlighter: rouge
 permalink: /:title
 
 url:

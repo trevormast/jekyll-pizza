@@ -5,7 +5,7 @@ require './lib/dweet_pizza'
 require 'rack/ssl-enforcer'
 require 'dweet'
 require 'pry' if AppEnv.development?
-require 'httplog' if AppEnv.development?
+# require 'httplog' if AppEnv.development?
 
 module JekyllPizza
   class App < Sinatra::Base
@@ -230,7 +230,7 @@ module JekyllPizza
     end
 
     def theme_selection(safe_params)
-      "./lib/#{safe_params['theme']}/"
+      "./lib/themes/#{safe_params['theme']}/"
     end
 
     def branch_name
@@ -254,7 +254,7 @@ module JekyllPizza
       build_status = @api.pages("#{@repo[:full_name]}")[:status]
       if builds == 5
         puts "exceeded build limit: errored #{builds} times."
-        redirect '/new?error=Oops, Something went wrong!'
+        redirect '/new?error=Exceeded build retry limit!'
       end
       
       case build_status 
