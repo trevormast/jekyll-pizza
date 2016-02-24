@@ -58,9 +58,9 @@ module GitHubStubs
       to_return(status: 200, body: update_ref, headers: { 'Content-Type' => 'application/json' })
 
     feature_ref = File.read('./spec/json/feature_ref.json')
-    WebMock.stub_request(:get, "https://api.github.com/repos/test_user/path/git/refs/heads/feature").
-         with(:headers => {'Accept'=>'application/vnd.github.v3+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/json', 'User-Agent'=>'Octokit Ruby Gem 4.1.1'}).
-         to_return(:status => 200, :body => "", :headers => {})
+    WebMock.stub_request(:get, 'https://api.github.com/repos/test_user/path/git/refs/heads/feature').
+      with(headers: { 'Accept' => 'application/vnd.github.v3+json', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type' => 'application/json', 'User-Agent' => 'Octokit Ruby Gem 4.1.1' }).
+      to_return(status: 200, body: feature_ref, headers: {})
 
     # TODO 
     WebMock.stub_request(:patch, 'https://api.github.com/repos/test_user/path').
@@ -83,7 +83,6 @@ module GitHubStubs
       with(body: "{\"branch\":\"gh-pages\",\"sha\":\"\",\"content\":\"I1RoYW5rIHlvdSBmb3IgdXNpbmcgSmVreWxsLlBpenphIQ==\",\"message\":\"New build\"}",
            headers: { 'Accept' => 'application/vnd.github.v3+json', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type' => 'application/json', 'User-Agent' => 'Octokit Ruby Gem 4.1.1' }).
       to_return(status: 200, body: '', headers: {})
-
 
     
     # check build again
