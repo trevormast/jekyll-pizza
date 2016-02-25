@@ -12,7 +12,7 @@ module JekyllPizza
 
     def run
       @dir = Recipe.new(@safe_params).read
-      @repo = Oven.new(@user, @dir, @safe_params).bake
+      @site_info = Oven.new(@user, @dir, @safe_params).bake
     end
   end
 end

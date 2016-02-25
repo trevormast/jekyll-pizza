@@ -3,7 +3,7 @@ module JekyllPizza
     attr_reader :safe_params, :theme_path, :dir
     def initialize(safe_params)
       @safe_params = safe_params
-      @theme = @safe_params["theme"]
+      @theme = @safe_params['theme']
       @theme_path = "./lib/themes/#{@theme}"
       @dir = Dir.mktmpdir
     end

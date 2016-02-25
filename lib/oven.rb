@@ -11,7 +11,7 @@ module JekyllPizza
     def bake
       @repo = commit_new_jekyll(@dir, @safe_params)
       check_build_status
-      @repo
+      { repo: @repo, full_repo_url: full_repo_url(@safe_params) }
     end
 
     def commit_new_jekyll(dir, user_options)
@@ -88,8 +88,8 @@ module JekyllPizza
 
     def full_repo_url(safe_params)
       proto = 'https://'
-      return proto + repository_url(@safe_params) if @root_repo
-      proto + @user.login + '.github.io/' + repository_url(@safe_params) + '/'
+      return proto + repository_url(safe_params) if @root_repo
+      proto + @user.login + '.github.io/' + repository_url(safe_params) + '/'
     end
 
     def branch_name
