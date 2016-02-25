@@ -50,22 +50,20 @@ describe 'App' do
       params =  { 'site' => { 'title' => '', 'description' => '', 'root_url' => 'user.github.io', 'path' => 'path', 'theme' => 'clean-jekyll' } }
       
       post 'create', params
-      # binding.pry
-      # expect(site_params).to include("title")
 
-      # expect(a_request(:get, 'https://api.github.com/repos/test_user/test_user.github.io')).to have_been_made.at_least_once
-      # expect(a_request(:get, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
-      # expect(a_request(:post, 'https://api.github.com/user/repos')).to have_been_made.at_least_once
-      # expect(a_request(:get, 'https://api.github.com/repos/test_user/path/git/refs/heads/master')).to have_been_made.at_least_once
-      # expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/refs')).to have_been_made.at_least_once
-      # expect(a_request(:get, 'https://api.github.com/repos/test_user/path/commits/c0879ec586f927218eb41e5e51578afc0e71cd10')).to have_been_made.at_least_once
-      # expect(a_request(:get, 'https://api.github.com/repos/test_user/path/git/refs/heads/feature')).to have_been_made.at_least_once
-      # expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/blobs')).to have_been_made.at_least_once
-      # expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/trees')).to have_been_made.at_least_once
-      # expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/commits')).to have_been_made.at_least_once
-      # expect(a_request(:patch, 'https://api.github.com/repos/test_user/path/git/refs/heads/gh-pages')).to have_been_made.at_least_once
-      # expect(a_request(:patch, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
-      # expect(a_request(:get, 'https://api.github.com/repos/test_user/path/pages')).to have_been_made.at_least_once
+      expect(a_request(:get, 'https://api.github.com/repos/test_user/test_user.github.io')).to have_been_made.at_least_once
+      expect(a_request(:get, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
+      expect(a_request(:post, 'https://api.github.com/user/repos')).to have_been_made.at_least_once
+      expect(a_request(:get, 'https://api.github.com/repos/test_user/path/git/refs/heads/master')).to have_been_made.at_least_once
+      expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/refs')).to have_been_made.at_least_once
+      expect(a_request(:get, 'https://api.github.com/repos/test_user/path/commits/c0879ec586f927218eb41e5e51578afc0e71cd10')).to have_been_made.at_least_once
+      expect(a_request(:get, 'https://api.github.com/repos/test_user/path/git/refs/heads/feature')).to have_been_made.at_least_once
+      expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/blobs')).to have_been_made.at_least_once
+      expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/trees')).to have_been_made.at_least_once
+      expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/commits')).to have_been_made.at_least_once
+      expect(a_request(:patch, 'https://api.github.com/repos/test_user/path/git/refs/heads/feature')).to have_been_made.at_least_once
+      expect(a_request(:patch, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
+      expect(a_request(:get, 'https://api.github.com/repos/test_user/path/pages')).to have_been_made.at_least_once
 
       # expect(last_response).to be_ok
     end	
