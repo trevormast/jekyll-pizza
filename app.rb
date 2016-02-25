@@ -52,7 +52,8 @@ module JekyllPizza
           redirect "/new?error=Oops, that repository already exists, pick a new path!&failures=#{@failures}"
         end
 
-        site_info = Delivery.new(@user, site_params).run
+        site_info = Delivery.new(@user, site_params, root_repo: @root_repo,
+                                                     repo_url: repository_url(site_params)).run
         @repo = site_info[:repo]
         @site_url = site_info[:full_repo_url]
         # dweet_creation
@@ -135,11 +136,5 @@ module JekyllPizza
       return '/' + path unless path[0...1] == '/'
       path
     end
-
-    # def full_repo_url(safe_params)
-    #   proto = 'https://'
-    #   return proto + repository_url(safe_params) if @root_repo
-    #   proto + @user.login + '.github.io/' + repository_url(safe_params) + '/'
-    # end
   end
 end

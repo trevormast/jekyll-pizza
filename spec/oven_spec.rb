@@ -8,13 +8,13 @@ require File.expand_path '../../lib/oven.rb', __FILE__
 describe 'Oven' do 
   before do
     @user = Sinatra::Auth::Github::Test::Helper::User.make
-    @safe_params = { 'title' => 'test title', 'description' => 'test desc', 
-                     'baseurl' => '/deliverytest',
-                     'url' => 'test_user.github.io',
-                     'github_username' => 'test_user' }
+    @opts = { root_repo: nil, repo_url: '/deliverytest', safe_params: { 'title' => 'test title', 'description' => 'test desc', 
+                                                                        'baseurl' => '/deliverytest',
+                                                                        'url' => 'test_user.github.io',
+                                                                        'github_username' => 'test_user' } }
     @dir = '/var/folders/nw/90qc2bxx12j6cg94870gcl4r0000gn/T/d20160222-19793-1rzm66u'
 
-    @oven = JekyllPizza::Oven.new(@user, @dir, @safe_params)
+    @oven = JekyllPizza::Oven.new(@user, @dir, @opts)
   end
 
   it 'returns a user' do
