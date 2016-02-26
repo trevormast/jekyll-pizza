@@ -1,16 +1,11 @@
 module JekyllPizza
   class Recipe
-    attr_reader :safe_params, :theme_path, :dir
-    def initialize(safe_params)
-      @safe_params = safe_params
-      @theme = @safe_params['theme']
-      @theme_path = "./lib/themes/#{@theme}"
+    def read(safe_params)
       @dir = Dir.mktmpdir
-    end
-
-    def read
+      @theme = safe_params['theme']
+      @theme_path = "./lib/themes/#{@theme}"
       copy_jekyll(@dir)
-      @updated_config = update_config(@dir, @safe_params)
+      @updated_config = update_config(@dir, safe_params)
       write_config(@updated_config, @dir)
       @dir
     end

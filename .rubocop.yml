@@ -98,5 +98,8 @@ Style/RegexpLiteral:
     - mixed
   AllowInnerSlashes: true
 
+Style/ClassAndModuleChildren:
+  Enabled: false
+
 
 

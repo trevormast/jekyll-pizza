@@ -1,16 +1,14 @@
 module JekyllPizza
   class Oven
-    attr_reader :user, :dir, :safe_params
-    def initialize(user, dir, opts = {})
+    
+    def bake(user, dir, opts = {})
       @user = user
       @api = @user.api
       @dir = dir
       @safe_params = opts[:safe_params]
       @root_repo = opts[:root_repo]
       @repo_url = opts[:repo_url]
-    end
 
-    def bake
       @repo = commit_new_jekyll(@dir)
       check_build_status
       { repo: @repo, full_repo_url: full_repo_url }

@@ -4,6 +4,10 @@ require 'pry'
 
 require File.expand_path '../../lib/delivery.rb', __FILE__
 
+class JekyllPizza::Delivery
+  attr_reader :user, :safe_params
+end
+
 describe 'Delivery' do
   before do
     @user = Sinatra::Auth::Github::Test::Helper::User.make

@@ -3,19 +3,21 @@ require './lib/oven'
 
 module JekyllPizza 
   class Delivery 
-    attr_reader :safe_params, :user
-
-    def initialize(user, safe_params, opts = {})
+    def initialize(user, safe_params, opts = {}, recipe = Recipe.new, oven = Oven.new)
       @user = user
       @safe_params = safe_params
       @opts = opts
+      @recipe = recipe
+      @oven = oven
+
+      # TODO: validate safe_params
       
       @opts[:safe_params] = @safe_params
     end
 
     def run
-      @dir = Recipe.new(@safe_params).read
-      @site_info = Oven.new(@user, @dir, @opts).bake
+      @dir = @recipe.read(@safe_params)
+      @site_info = @oven.bake(@user, @dir, @opts)
     end
   end
 end
