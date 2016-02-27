@@ -2736,6 +2736,10 @@ body .github-text {
   text-transform: none;
   letter-spacing: 0;
   font-weight: bold; }
+body .jekyll-text {
+  color: #000;
+  font-weight: bold;
+  letter-spacing: -1px; }
 body .darkie {
   color: #262626; }
 body #banner h2.tagline {
