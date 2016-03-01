@@ -47,17 +47,21 @@ module JekyllPizza
 
       begin
         # TODO: improve validations
-        if @api.repository?(user_repo_path(site_params))
+        delivery = Delivery.new(@user, params)
+
+        if @api.repository?(delivery.user_repo_path)
           @failures += 1
           redirect "/new?error=Oops, that repository already exists, pick a new path!&failures=#{@failures}"
         end
+        site_info = delivery.run
 
-        site_info = Delivery.new(@user, site_params, root_repo: @root_repo,
-                                                     repo_url: repository_url(site_params)).run
         @repo = site_info[:repo]
         @site_url = site_info[:full_repo_url]
         # dweet_creation
         slim :create, layout: :default
+      rescue PathError => p
+        @failures += 1
+        redirect "/new?error=#{p.message}"  
       rescue StandardError => e
         # TODO: improve logging, error handling.. issue #
         puts e.message
@@ -92,21 +96,6 @@ module JekyllPizza
     end
 
     # helper methods
-    def site_params
-      safe_params = {}
-      safe_params['title'] = params['site']['title'] unless params['site']['title'].blank?
-      safe_params['description'] = params['site']['description'] unless params['site']['description'].blank?
-
-      # TODO: improve this logic
-      safe_params['baseurl'] = params['site']['path']
-      safe_params['baseurl'] = '/' + safe_params['baseurl'] unless safe_params['baseurl'].match(/^\//) || params['site']['path'].blank?
-
-      safe_params['url'] = "#{@user.login}.github.io"
-      safe_params['github_username'] = @user.login
-      safe_params['theme'] = params['site']['theme']
-
-      safe_params
-    end
 
     def setup_user
       authenticate!
@@ -118,23 +107,6 @@ module JekyllPizza
 
     def check_root_repo_status
       @api.repository?("#{@user.login}/#{@user.login}.github.io")
-    end
-
-    def user_repo_path(safe_params)
-      @user.login + '/' + repository_url(safe_params)
-    end
-
-    def repository_url(safe_params)
-      if params['site']['path'].blank?
-        @root_repo = true
-        return safe_params['url'].gsub('https://', '') 
-      end
-      blog_path(safe_params['baseurl']).gsub('https://', '').delete('/')
-    end
-
-    def blog_path(path)
-      return '/' + path unless path[0...1] == '/'
-      path
     end
   end
 end
