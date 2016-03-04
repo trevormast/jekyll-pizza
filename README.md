@@ -1,4 +1,6 @@
 ![TravisCI Build](https://travis-ci.org/trevormast/jekyll-pizza.svg?branch=master) 
+[![Dependency Status](https://gemnasium.com/trevormast/jekyll-pizza.svg)](https://gemnasium.com/trevormast/jekyll-pizza)
+
 ## Jekyll.pizza
 
 #### Getting Started
