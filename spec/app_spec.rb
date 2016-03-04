@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'sinatra/auth/github/test/test_helper'
 require 'json'
 require 'githubstubs'
+require File.expand_path '../../lib/oven.rb', __FILE__
+require 'app_spec_helper'
 
 describe 'App' do
   include Warden::Test::Helpers
@@ -40,7 +42,7 @@ describe 'App' do
   end
 
   describe "POST '/create'" do
-    it 'creates me a jekyll blog' do
+    before do
       login_as Sinatra::Auth::Github::Test::Helper::User.make
 
       include GitHubStubs
@@ -50,7 +52,9 @@ describe 'App' do
       params =  { 'site' => { 'title' => '', 'description' => '', 'root_url' => 'user.github.io', 'path' => 'path', 'theme' => 'clean-jekyll' } }
       
       post 'create', params
+    end
 
+    it 'creates me a jekyll blog' do
       expect(a_request(:get, 'https://api.github.com/repos/test_user/test_user.github.io')).to have_been_made.at_least_once
       expect(a_request(:get, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
       expect(a_request(:post, 'https://api.github.com/user/repos')).to have_been_made.at_least_once
@@ -63,46 +67,47 @@ describe 'App' do
       expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/commits')).to have_been_made.at_least_once
       expect(a_request(:patch, 'https://api.github.com/repos/test_user/path/git/refs/heads/feature')).to have_been_made.at_least_once
       expect(a_request(:patch, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
-      expect(a_request(:get, 'https://api.github.com/repos/test_user/path/pages')).to have_been_made.at_least_once
-
-      # expect(last_response).to be_ok
-    end	
-
-    describe "GET '/failure'" do
-      it 'gets the /failure page' do
-        get '/failure'
-  
-        expect(last_response).to be_ok
-        expect(last_response.body).to include('Error')
-      end
-  
-      describe "GET '/thanks'" do
-        it 'gets the /thanks page' do
-          get '/thanks'
-    
-          expect(last_response).to be_ok
-          expect(last_response.body).to include('Thank')
-        end
-      end
-  
-      describe "GET '/attribution'" do
-        it 'gets the /attribution page' do
-          get '/attribution'
-    
-          expect(last_response).to be_ok
-          # expect(last_response.body).to include("Possible")
-        end
-      end
-  
-      describe "GET '/donate'" do
-        it 'gets the /donate page' do
-          get '/donate'
-    
-          expect(last_response).to be_ok
-          expect(last_response.body).to include('Donate')
-        end
-      end
     end
-    
+
+    it 'displays correct site info' do
+      expect(last_response.body).to include('https://github.com/test_user/path')
+      expect(last_response.body).to include('https://test_user.github.io/path')
+    end
+  end
+
+  describe "GET '/failure'" do
+    it 'gets the /failure page' do
+      get '/failure'
+
+      expect(last_response).to be_ok
+      expect(last_response.body).to include('Error')
+    end
+  end
+
+  describe "GET '/thanks'" do
+    it 'gets the /thanks page' do
+      get '/thanks'
+
+      expect(last_response).to be_ok
+      expect(last_response.body).to include('Thank')
+    end
+  end
+
+  describe "GET '/attribution'" do
+    it 'gets the /attribution page' do
+      get '/attribution'
+
+      expect(last_response).to be_ok
+      # expect(last_response.body).to include("Possible")
+    end
+  end
+
+  describe "GET '/donate'" do
+    it 'gets the /donate page' do
+      get '/donate'
+
+      expect(last_response).to be_ok
+      expect(last_response.body).to include('Donate')
+    end
   end
 end

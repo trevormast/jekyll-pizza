@@ -2,7 +2,10 @@ require 'sinatra'
 require 'sinatra/auth/github'
 require './lib/view_helpers'
 require './lib/dweet_pizza'
+require './lib/order'
 require './lib/delivery'
+require './lib/recipe'
+require './lib/oven'
 require 'rack/ssl-enforcer'
 require 'dweet'
 require 'pry' if AppEnv.development?
@@ -47,14 +50,14 @@ module JekyllPizza
 
       begin
         # TODO: improve validations
-        delivery = Delivery.new(@user, params)
-
-        if @api.repository?(delivery.user_repo_path)
+        order = Order.new(@user, params)
+        
+        if @api.repository?(order.user_repo_path)
           @failures += 1
           redirect "/new?error=Oops, that repository already exists, pick a new path!&failures=#{@failures}"
         end
-        site_info = delivery.run
 
+        site_info = Delivery.new(order, Recipe.new(order.site_params).dir, Oven.new).run
         @repo = site_info[:repo]
         @site_url = site_info[:full_repo_url]
         # dweet_creation

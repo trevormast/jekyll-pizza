@@ -2,9 +2,11 @@ require 'rspec'
 require 'spec_helper'
 require 'sinatra/auth/github/test/test_helper'
 require 'githubstubs'
+require 'app_spec_helper'
 require 'pry'
 
 require File.expand_path '../../lib/oven.rb', __FILE__
+require File.expand_path '../../lib/order.rb', __FILE__
 
 class JekyllPizza::Oven
   attr_reader :user, :dir, :safe_params, :repo
@@ -17,17 +19,18 @@ describe 'Oven' do
     GitHubStubs.valid_stubs
 
     @user = Sinatra::Auth::Github::Test::Helper::User.make
-    @opts = { root_repo: nil, repo_url: '/path', safe_params: { 'title' => 'test title', 'description' => 'test desc', 
-                                                                'baseurl' => '/deliverytest',
-                                                                'url' => 'test_user.github.io',
-                                                                'github_username' => 'test_user' } }
+    @params =  { 'site' => { 'title' => 'test title', 'description' => 'test desc', 
+                             'root_url' => 'test_user.github.io', 
+                             'path' => 'deliverytest', 'theme' => 'clean-jekyll' } }
+    @order = JekyllPizza::Order.new(@user, @params)
+                                                                
     @dir = Dir.mktmpdir
 
     @oven = JekyllPizza::Oven.new
 
-    @oven.bake(@user, @dir, @opts)
+    @oven.run(@order, @dir)
 
-    allow(@oven).to receive(:commit_new_jekyll).with(@dir)
+    allow(@oven).to receive(:commit_new_jekyll)
     allow(@oven).to receive(:check_build_status)
     # TODO: stub the commit_new_jekyll method to stop ext requests
     
@@ -37,11 +40,7 @@ describe 'Oven' do
     expect(@oven.user.attribs).to include('login')
   end
 
-  it 'has a full repo name' do
-    expect(@oven.repo).to respond_to(:full_name)
-  end
-
-  # it 'has a directory path' do
-  #   expect(@oven.dir).to eq(@dir)
+  # it 'has a full repo name' do
+  #   expect(@oven.repo).to respond_to(:full_name)
   # end
 end
