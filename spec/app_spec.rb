@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'sinatra/auth/github/test/test_helper'
 require 'json'
 require 'githubstubs'
-require File.expand_path '../../lib/oven.rb', __FILE__
+# require File.expand_path '../../lib/taste_test.rb', __FILE__
 require 'app_spec_helper'
 
 describe 'App' do

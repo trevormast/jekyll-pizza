@@ -2,7 +2,7 @@ require 'rspec'
 require 'spec_helper'
 require 'sinatra/auth/github/test/test_helper'
 require 'githubstubs'
-require 'app_spec_helper'
+# require 'app_spec_helper'
 require 'pry'
 
 require File.expand_path '../../lib/oven.rb', __FILE__
@@ -31,7 +31,7 @@ describe 'Oven' do
     @oven.run(@order, @dir)
 
     allow(@oven).to receive(:commit_new_jekyll)
-    allow(@oven).to receive(:check_build_status)
+
     # TODO: stub the commit_new_jekyll method to stop ext requests
     
   end

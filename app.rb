@@ -6,6 +6,7 @@ require './lib/order'
 require './lib/delivery'
 require './lib/recipe'
 require './lib/oven'
+require './lib/taste_test'
 require 'rack/ssl-enforcer'
 require 'dweet'
 require 'pry' if AppEnv.development?
@@ -30,7 +31,7 @@ module JekyllPizza
 
     get '/' do
       @flash ||= []
-      slim :index, layout: :default
+      slim :index, layout: :default 
     end
 
     get '/new' do
@@ -57,7 +58,10 @@ module JekyllPizza
           redirect "/new?error=Oops, that repository already exists, pick a new path!&failures=#{@failures}"
         end
 
-        site_info = Delivery.new(order, Recipe.new(order.site_params).dir, Oven.new).run
+        site_info = Delivery.new(order, 
+                                 Recipe.new(order.site_params).dir,
+                                 Oven.new, 
+                                 TasteTest.new).run
         @repo = site_info[:repo]
         @site_url = site_info[:full_repo_url]
         # dweet_creation

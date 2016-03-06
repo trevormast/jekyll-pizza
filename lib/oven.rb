@@ -10,8 +10,7 @@ module JekyllPizza
       @api = @user.api
       @dir = dir
       @repo = commit_new_jekyll
-      check_build_status
-      { repo: @repo, full_repo_url: full_repo_url }
+      { repo: @repo, full_repo_url: full_repo_url, branch_name: branch_name }
     end
 
     def commit_new_jekyll
@@ -86,40 +85,6 @@ module JekyllPizza
     def branch_name
       return 'gh-pages' unless @safe_params['baseurl'].blank?
       'master'
-    end
-
-    def update_readme(branch_name, builds)
-      readme_info = @api.contents("#{@repo[:full_name]}", path: '/README.md')
-      @api.update_contents("#{@repo[:full_name]}",
-                           '/README.md',
-                           'New build',
-                           "#{readme_info[:sha]}",
-                           "#Thank you for using Jekyll.Pizza#{'!' * (1 + builds)}",
-                           branch: "#{branch_name}")
-      puts 'Starting new build'
-    end
-
-    def check_build_status(count = 0)
-      builds = count
-      build_status = @api.pages("#{@repo[:full_name]}")[:status]
-      if builds == 5
-        puts "exceeded build limit: errored #{builds} times."
-        redirect '/new?error=Oops, Something went wrong!'
-      end
-      
-      case build_status 
-      when 'building'
-        puts "Build status: #{build_status}"
-        sleep(5) # Give GHPages a chance to catch up with api requests
-        check_build_status(builds)
-      when 'errored'
-        puts "Build status: #{build_status}"
-        update_readme(branch_name, builds)
-        builds += 1
-        check_build_status(builds)
-      else
-        puts 'BUILD COMPLETE!'
-      end
     end
   end
 end
