@@ -20,29 +20,29 @@ describe 'Taste Test' do
     @params =  { 'site' => { 'title' => 'test title', 'description' => 'test desc', 
                              'root_url' => 'test_user.github.io', 
                              'path' => 'deliverytest', 'theme' => 'clean-jekyll' } }
-    @order = JekyllPizza::Order.new(@user, @params)
+    @order = JekyllPizza::Order.new(user: @user, params: @params)
                                                                 
     @dir = Dir.mktmpdir
 
     @oven = JekyllPizza::Oven.new
 
-    @site_info = @oven.run(@order, @dir)
+    @site_info = @oven.run(order: @order, dir: @dir)
 
     @taste = JekyllPizza::TasteTest.new
   end
 
   it 'is passed site info' do
-    @taste.run(@user, @site_info)
+    @taste.run(user: @user, site_info: @site_info)
     expect(@taste.site_info).to include(:repo)
   end
 
   it 'checks build status' do
-    @taste.run(@user, @site_info)
+    @taste.run(user: @user, site_info: @site_info)
     
     expect(a_request(:get, 'https://api.github.com/repos/test_user/path/pages')).to have_been_made.times(3)
   end
 
   it 'reports build status' do
-    expect { @taste.run(@user, @site_info) }.to change { @taste.build_status }.from(nil).to('built')
+    expect { @taste.run(user: @user, site_info: @site_info) }.to change { @taste.build_status }.from(nil).to('built')
   end
 end

@@ -51,17 +51,18 @@ module JekyllPizza
 
       begin
         # TODO: improve validations
-        order = Order.new(@user, params)
-        
+        order = Order.new(user: @user, 
+                          params: params)
+
         if @api.repository?(order.user_repo_path)
           @failures += 1
           redirect "/new?error=Oops, that repository already exists, pick a new path!&failures=#{@failures}"
         end
 
-        site_info = Delivery.new(order, 
-                                 Recipe.new(order.site_params).dir,
-                                 Oven.new, 
-                                 TasteTest.new).run
+        site_info = Delivery.new(order: order, 
+                                 directory: Recipe.new(order.site_params).dir,
+                                 repo: Oven.new, 
+                                 build_status: TasteTest.new).run
         @repo = site_info[:repo]
         @site_url = site_info[:full_repo_url]
         # dweet_creation

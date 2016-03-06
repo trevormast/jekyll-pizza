@@ -1,9 +1,9 @@
 module JekyllPizza
   class TasteTest
-    def run(user, site_info)
-      @user = user
+    def run(args)
+      @user = args[:user]
       @api = @user.api
-      @site_info = site_info
+      @site_info = args[:site_info]
       @repo = @site_info[:repo]
       @branch_name = @site_info[:branch_name]
       @full_name = @repo[:full_name]

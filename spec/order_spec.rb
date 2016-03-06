@@ -12,7 +12,7 @@ describe 'Order' do
                                'root_url' => 'test_user.github.io', 
                                'path' => 'deliverytest', 'theme' => 'clean-jekyll' } }
 
-      @order = JekyllPizza::Order.new(@user, @params)
+      @order = JekyllPizza::Order.new(user: @user, params: @params)
     end
     
     it 'should have a user' do
@@ -34,7 +34,7 @@ describe 'Order' do
       @params =  { 'site' => { 'title' => 'test title', 'description' => 'test desc', 
                                'root_url' => 'test_user.github.io', 
                                'path' => 'delivery test', 'theme' => 'clean-jekyll' } }
-      expect { JekyllPizza::Order.new(@user, @params) }.to raise_error(PathError)
+      expect { JekyllPizza::Order.new(user: @user, params: @params) }.to raise_error(PathError)
     end
   end
 end

@@ -15,7 +15,7 @@ describe 'Recipe' do
     @params =  { 'site' => { 'title' => 'test title', 'description' => 'test desc', 
                              'root_url' => 'test_user.github.io', 
                              'path' => 'deliverytest', 'theme' => 'clean-jekyll' } }
-    @order = JekyllPizza::Order.new(@user, @params)
+    @order = JekyllPizza::Order.new(user: @user, params: @params)
     # @theme = 'clean-jekyll'
 
     @recipe = JekyllPizza::Recipe.new(@order.site_params)

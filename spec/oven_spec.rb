@@ -22,13 +22,13 @@ describe 'Oven' do
     @params =  { 'site' => { 'title' => 'test title', 'description' => 'test desc', 
                              'root_url' => 'test_user.github.io', 
                              'path' => 'deliverytest', 'theme' => 'clean-jekyll' } }
-    @order = JekyllPizza::Order.new(@user, @params)
+    @order = JekyllPizza::Order.new(user: @user, params: @params)
                                                                 
     @dir = Dir.mktmpdir
 
     @oven = JekyllPizza::Oven.new
 
-    @oven.run(@order, @dir)
+    @oven.run(order: @order, dir: @dir)
 
     allow(@oven).to receive(:commit_new_jekyll)
 

@@ -3,9 +3,9 @@ require './lib/path_error'
 module JekyllPizza 
   class Order 
     attr_reader :user, :root_repo, :repo_url
-    def initialize(user, params)          
-      @user = user
-      @params = params
+    def initialize(args)          
+      @user = args[:user]
+      @params = args[:params]
       @root_repo = nil
       @repo_url = repository_url
     end
