@@ -55,6 +55,7 @@ describe 'App' do
     end
 
     it 'creates me a jekyll blog' do
+      
       expect(a_request(:get, 'https://api.github.com/repos/test_user/test_user.github.io')).to have_been_made.at_least_once
       expect(a_request(:get, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
       expect(a_request(:post, 'https://api.github.com/user/repos')).to have_been_made.at_least_once

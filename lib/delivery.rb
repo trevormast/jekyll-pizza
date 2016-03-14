@@ -10,9 +10,12 @@ module JekyllPizza
     end
 
     def run
-      @site_info = @repo.run(order: @order, dir: @dir)
-      @build_status.run(user: @user, site_info: @site_info)
-      @site_info
+      thread = Thread.new {
+        @site_info = @repo.run(order: @order, dir: @dir)
+        @build_status.run(user: @user, site_info: @site_info)
+        @site_info 
+      }
+      puts 'where am I?'
     end
   end
 end

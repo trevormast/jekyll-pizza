@@ -21,3 +21,14 @@ class JekyllPizza::TasteTest
     end
   end
 end
+
+class JekyllPizza::Delivery
+  def run
+    thread = Thread.new {
+        @site_info = @repo.run(order: @order, dir: @dir)
+        @build_status.run(user: @user, site_info: @site_info)
+        @site_info 
+      }
+      thread.join 
+  end
+end

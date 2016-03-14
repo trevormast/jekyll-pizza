@@ -59,12 +59,22 @@ module JekyllPizza
           redirect "/new?error=Oops, that repository already exists, pick a new path!&failures=#{@failures}"
         end
 
-        site_info = Delivery.new(order: order, 
-                                 directory: Recipe.new(order.site_params).dir,
-                                 repo: Oven.new, 
-                                 build_status: TasteTest.new).run
-        @repo = site_info[:repo]
-        @site_url = site_info[:full_repo_url]
+        create_blog = Delivery.new(order: order, 
+                       directory: Recipe.new(order.site_params).dir,
+                       repo: Oven.new, 
+                       build_status: TasteTest.new).run
+
+        # create_blog = Thread.new {
+        #   Delivery.new(order: order, 
+        #                directory: Recipe.new(order.site_params).dir,
+        #                repo: Oven.new, 
+        #                build_status: TasteTest.new).run
+        # }  
+        # create_blog.join if ENV['RACK_ENV'] == 'test'
+        # @repo = site_info[:repo]
+        # @site_url = site_info[:full_repo_url]
+        @repo = 'https://github.com/test_user/path'
+        @site_url = 'https://test_user.github.io/path'
         # dweet_creation
         slim :create, layout: :default
       rescue PathError => p
@@ -104,6 +114,7 @@ module JekyllPizza
     end
 
     # helper methods
+    private
 
     def setup_user
       authenticate!
@@ -116,5 +127,6 @@ module JekyllPizza
     def check_root_repo_status
       @api.repository?("#{@user.login}/#{@user.login}.github.io")
     end
+
   end
 end
