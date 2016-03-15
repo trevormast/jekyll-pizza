@@ -1,5 +1,6 @@
 module JekyllPizza
   class TasteTest
+    attr_reader :build_status
     def run(args)
       @user = args[:user]
       @api = @user.api
@@ -7,7 +8,9 @@ module JekyllPizza
       @repo = @site_info[:repo]
       @branch_name = @site_info[:branch_name]
       @full_name = @repo[:full_name]
+      
       check_build_status
+      @build_status
     end
 
     def update_readme(builds)

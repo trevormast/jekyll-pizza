@@ -42,38 +42,60 @@ describe 'App' do
   end
 
   describe "POST '/create'" do
-    before do
-      login_as Sinatra::Auth::Github::Test::Helper::User.make
+    context 'with path given' do
+      before do
+        login_as Sinatra::Auth::Github::Test::Helper::User.make
 
-      include GitHubStubs
+        include GitHubStubs
 
-      GitHubStubs.valid_stubs
-      
-      params =  { 'site' => { 'title' => '', 'description' => '', 'root_url' => 'user.github.io', 'path' => 'path', 'theme' => 'clean-jekyll' } }
-      
-      post 'create', params
+        GitHubStubs.valid_stubs
+        
+        params =  { 'site' => { 'title' => '', 'description' => '', 'root_url' => 'user.github.io', 'path' => 'path', 'theme' => 'clean-jekyll' } }
+        
+        post 'create', params
+      end
+
+      it 'creates me a jekyll blog' do
+        
+        expect(a_request(:get, 'https://api.github.com/repos/test_user/test_user.github.io')).to have_been_made.at_least_once
+        expect(a_request(:get, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
+        expect(a_request(:post, 'https://api.github.com/user/repos')).to have_been_made.at_least_once
+        expect(a_request(:get, 'https://api.github.com/repos/test_user/path/git/refs/heads/master')).to have_been_made.at_least_once
+        expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/refs')).to have_been_made.at_least_once
+        expect(a_request(:get, 'https://api.github.com/repos/test_user/path/commits/c0879ec586f927218eb41e5e51578afc0e71cd10')).to have_been_made.at_least_once
+        expect(a_request(:get, 'https://api.github.com/repos/test_user/path/git/refs/heads/feature')).to have_been_made.at_least_once
+        expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/blobs')).to have_been_made.at_least_once
+        expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/trees')).to have_been_made.at_least_once
+        expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/commits')).to have_been_made.at_least_once
+        expect(a_request(:patch, 'https://api.github.com/repos/test_user/path/git/refs/heads/feature')).to have_been_made.at_least_once
+        expect(a_request(:patch, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
+      end
+
+      it 'displays correct site info' do
+        expect(last_response.body).to include('https://github.com/test_user/path')
+        expect(last_response.body).to include('https://test_user.github.io/path')
+      end
     end
+    # TODO
+    # context 'with no path given' do
+    #   before do
+    #     login_as Sinatra::Auth::Github::Test::Helper::User.make
 
-    it 'creates me a jekyll blog' do
-      
-      expect(a_request(:get, 'https://api.github.com/repos/test_user/test_user.github.io')).to have_been_made.at_least_once
-      expect(a_request(:get, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
-      expect(a_request(:post, 'https://api.github.com/user/repos')).to have_been_made.at_least_once
-      expect(a_request(:get, 'https://api.github.com/repos/test_user/path/git/refs/heads/master')).to have_been_made.at_least_once
-      expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/refs')).to have_been_made.at_least_once
-      expect(a_request(:get, 'https://api.github.com/repos/test_user/path/commits/c0879ec586f927218eb41e5e51578afc0e71cd10')).to have_been_made.at_least_once
-      expect(a_request(:get, 'https://api.github.com/repos/test_user/path/git/refs/heads/feature')).to have_been_made.at_least_once
-      expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/blobs')).to have_been_made.at_least_once
-      expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/trees')).to have_been_made.at_least_once
-      expect(a_request(:post, 'https://api.github.com/repos/test_user/path/git/commits')).to have_been_made.at_least_once
-      expect(a_request(:patch, 'https://api.github.com/repos/test_user/path/git/refs/heads/feature')).to have_been_made.at_least_once
-      expect(a_request(:patch, 'https://api.github.com/repos/test_user/path')).to have_been_made.at_least_once
-    end
+    #     include GitHubStubs
 
-    it 'displays correct site info' do
-      expect(last_response.body).to include('https://github.com/test_user/path')
-      expect(last_response.body).to include('https://test_user.github.io/path')
-    end
+    #     GitHubStubs.valid_stubs
+        
+    #     params =  { 'site' => { 'title' => '', 'description' => '', 'root_url' => 'user.github.io', 'path' => '', 'theme' => 'clean-jekyll' } }
+        
+    #     post 'create', params
+    #   end
+
+    #   it 'displays correct site info' do
+    #     
+        
+    #     expect(last_response.body).to include('https://test_user/test_user.github.io')
+    #   end
+    # end
   end
 
   describe "GET '/failure'" do

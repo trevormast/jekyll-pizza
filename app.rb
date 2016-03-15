@@ -51,30 +51,24 @@ module JekyllPizza
 
       begin
         # TODO: improve validations
-        order = Order.new(user: @user, 
-                          params: params)
 
-        if @api.repository?(order.user_repo_path)
+        @order = Order.new(user: @user, 
+                           params: params)
+      
+        if @api.repository?(@order.user_repo_path)
           @failures += 1
           redirect "/new?error=Oops, that repository already exists, pick a new path!&failures=#{@failures}"
         end
 
-        create_blog = Delivery.new(order: order, 
-                       directory: Recipe.new(order.site_params).dir,
-                       repo: Oven.new, 
-                       build_status: TasteTest.new).run
+        @blog = Delivery.new(order: @order, 
+                             directory: Recipe.new(@order.site_params).dir,
+                             repo: Oven.new, 
+                             build_status: TasteTest.new).run
 
-        # create_blog = Thread.new {
-        #   Delivery.new(order: order, 
-        #                directory: Recipe.new(order.site_params).dir,
-        #                repo: Oven.new, 
-        #                build_status: TasteTest.new).run
-        # }  
-        # create_blog.join if ENV['RACK_ENV'] == 'test'
-        # @repo = site_info[:repo]
-        # @site_url = site_info[:full_repo_url]
-        @repo = 'https://github.com/test_user/path'
-        @site_url = 'https://test_user.github.io/path'
+        # @build = @blog[:build]
+        @repo = repo_name
+        @site_url = blog_url
+
         # dweet_creation
         slim :create, layout: :default
       rescue PathError => p
@@ -114,6 +108,7 @@ module JekyllPizza
     end
 
     # helper methods
+
     private
 
     def setup_user
@@ -128,5 +123,14 @@ module JekyllPizza
       @api.repository?("#{@user.login}/#{@user.login}.github.io")
     end
 
+    def repo_name
+      return "https://github.com/#{@order.user.login}/#{@order.user.login}.github.io" if @order.root_repo
+      "https://github.com/#{@order.user.login}#{@order.site_params['baseurl']}"
+    end
+
+    def blog_url
+      return "https://#{@order.user.login}.github.io" if @order.root_repo
+      "https://#{@order.user.login}.github.io#{@order.site_params['baseurl']}"
+    end
   end
 end

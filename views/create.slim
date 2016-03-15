@@ -2,10 +2,15 @@ section#wrapper
   section#one.wrapper.spotlight.style1
     .inner
       div style="display: block; width: 50%; margin-left: 3.0em; text-align: left;"
-        p
-          a href="https://github.com/#{@repo}"= @repo
+
+        p 
+          = "GitHub Repository: "
+          a href="#{@repo}"= "  " + @repo
           br
-        a href="#{@site_url}"= @site_url.gsub("https://",'')
+          = "Blog Url:"
+          a href="#{@site_url}"= "  " + @site_url
       
       div
-        h1 Order up!
+        h1 Order up!  
+        h1 Your blog will be available shortly. 
+

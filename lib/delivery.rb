@@ -1,5 +1,6 @@
 module JekyllPizza
   class Delivery
+    attr_reader :build_status
     def initialize(args)
       @order = args[:order]
       @dir = args[:directory]
@@ -10,12 +11,16 @@ module JekyllPizza
     end
 
     def run
-      thread = Thread.new {
-        @site_info = @repo.run(order: @order, dir: @dir)
-        @build_status.run(user: @user, site_info: @site_info)
-        @site_info 
-      }
-      puts 'where am I?'
+      Thread.new { create_blog }
+    end
+
+    private
+
+    def create_blog
+      @site_info = @repo.run(order: @order, dir: @dir)
+      @build = @build_status.run(user: @user, site_info: @site_info)
+
+      @site_info.merge!(build: @build)
     end
   end
 end
