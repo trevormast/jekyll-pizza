@@ -23,6 +23,7 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     colorator (0.1)
+    concurrent-ruby (1.0.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
@@ -126,6 +127,8 @@ GEM
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
+    sucker_punch (2.0.1)
+      concurrent-ruby (~> 1.0.0)
     temple (0.7.6)
     thread_safe (0.3.5)
     tilt (2.0.1)
@@ -167,6 +170,7 @@ DEPENDENCIES
   sinatra
   sinatra_auth_github
   slim
+  sucker_punch (~> 2.0)
   webmock
 
 BUNDLED WITH

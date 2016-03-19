@@ -1,3 +1,4 @@
+# Removes 5s of sleep when checking GHPages build 
 class JekyllPizza::TasteTest
   def check_build_status(count = 0)
     builds = count
@@ -19,5 +20,12 @@ class JekyllPizza::TasteTest
     else
       puts 'BUILD COMPLETE!'
     end
+  end
+end
+
+# Calls synchronous job for testability
+class JekyllPizza::App
+  def create_blog(order)
+    @site_info = CommitJob.new.perform(order)
   end
 end
