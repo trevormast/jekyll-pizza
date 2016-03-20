@@ -67,8 +67,8 @@ module JekyllPizza
 
         create_blog(order)
 
-        @repo = @site_info[:repo]
-        @site_url = @site_info[:full_repo_url]
+        @repo = repo_name(order)
+        @site_url = blog_url(order)
         # dweet_creation
         slim :create, layout: :default
       rescue PathError => p
@@ -123,6 +123,16 @@ module JekyllPizza
 
     def create_blog(order)
       @site_info = CommitJob.perform_async(order)
+    end
+
+    def repo_name(order)
+      return "https://github.com/#{order.user.login}/#{order.user.login}.github.io" if order.root_repo
+      "https://github.com/#{order.user.login}#{order.site_params['baseurl']}"
+    end
+
+    def blog_url(order)
+      return "https://#{order.user.login}.github.io" if order.root_repo
+      "https://#{order.user.login}.github.io#{order.site_params['baseurl']}"
     end
   end
 end
