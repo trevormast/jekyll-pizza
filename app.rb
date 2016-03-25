@@ -7,6 +7,7 @@ require './lib/delivery'
 require './lib/recipe'
 require './lib/oven'
 require './lib/taste_test'
+require './workers/commit_worker'
 require 'rack/ssl-enforcer'
 require 'dweet'
 require 'pry' if AppEnv.development?
@@ -59,12 +60,15 @@ module JekyllPizza
           redirect "/new?error=Oops, that repository already exists, pick a new path!&failures=#{@failures}"
         end
 
-        site_info = Delivery.new(order: order, 
-                                 directory: Recipe.new(order.site_params).dir,
-                                 repo: Oven.new, 
-                                 build_status: TasteTest.new).run
-        @repo = site_info[:repo]
-        @site_url = site_info[:full_repo_url]
+        # site_info = Delivery.new(order: order, 
+        #                          directory: Recipe.new(order.site_params).dir,
+        #                          repo: Oven.new, 
+        #                          build_status: TasteTest.new).run
+
+        create_blog(@user.token, params)
+
+        @repo = repo_name(order)
+        @site_url = blog_url(order)
         # dweet_creation
         slim :create, layout: :default
       rescue PathError => p
@@ -115,6 +119,20 @@ module JekyllPizza
 
     def check_root_repo_status
       @api.repository?("#{@user.login}/#{@user.login}.github.io")
+    end
+
+    def repo_name(order)
+      return "https://github.com/#{order.user.login}/#{order.user.login}.github.io" if order.root_repo
+      "https://github.com/#{order.user.login}#{order.site_params['baseurl']}"
+    end
+
+    def blog_url(order)
+      return "https://#{order.user.login}.github.io" if order.root_repo
+      "https://#{order.user.login}.github.io#{order.site_params['baseurl']}"
+    end
+
+    def create_blog(token, params)
+      CommitWorker.perform_async(token, params)
     end
   end
 end

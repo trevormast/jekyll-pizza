@@ -7,10 +7,10 @@ module JekyllPizza
       @safe_params = @order.site_params
       @root_repo = @order.root_repo
       @repo_url = @order.repo_url
-      @api = @user.api
+      @api = @user
       @dir = args[:dir]
       @repo = commit_new_jekyll
-      { repo: @repo, full_repo_url: full_repo_url, branch_name: branch_name }
+      { repo: @repo, branch_name: branch_name }
     end
 
     def commit_new_jekyll

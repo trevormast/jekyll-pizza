@@ -6,4 +6,4 @@ log
 .sass-cache
 coverage
 /coverage
-
+dump.rdb

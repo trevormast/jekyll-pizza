@@ -3,9 +3,9 @@ section#wrapper
     .inner
       div style="display: block; width: 50%; margin-left: 3.0em; text-align: left;"
         p
-          a href="https://github.com/#{@repo[:full_name]}"= @repo[:full_name]
+          a href="#{@repo}"= @repo
           br
-        a href="#{@site_url}"= @site_url.gsub("https://",'')
+        a href="#{@site_url}"= @site_url
       
       div
         h1 Order up!

@@ -21,3 +21,9 @@ class JekyllPizza::TasteTest
     end
   end
 end
+
+class JekyllPizza::App
+  def create_blog(token, params)
+    CommitWorker.new.perform(token, params)
+  end
+end
