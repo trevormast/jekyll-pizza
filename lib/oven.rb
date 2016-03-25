@@ -3,11 +3,10 @@ module JekyllPizza
     
     def run(args)
       @order = args[:order]
-      @user = @order.user
+      @api = @order.user
       @safe_params = @order.site_params
       @root_repo = @order.root_repo
       @repo_url = @order.repo_url
-      @api = @user
       @dir = args[:dir]
       @repo = commit_new_jekyll
       { repo: @repo, branch_name: branch_name }
@@ -89,7 +88,7 @@ module JekyllPizza
     def full_repo_url
       proto = 'https://'
       return proto + @repo_url if @root_repo
-      proto + @user.login + '.github.io/' + @repo_url + '/'
+      proto + @api.login + '.github.io/' + @repo_url + '/'
     end
 
     def branch_name
