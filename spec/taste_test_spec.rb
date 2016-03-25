@@ -6,7 +6,7 @@ require 'app_spec_helper'
 require 'pry'
 
 class JekyllPizza::TasteTest
-  attr_reader :repo, :user, :order, :site_info
+  attr_reader :repo, :api, :order, :site_info
   attr_accessor :build_status
 end
 
@@ -16,7 +16,7 @@ describe 'Taste Test' do
 
     GitHubStubs.valid_stubs
 
-    @user = Sinatra::Auth::Github::Test::Helper::User.make
+    @user = Sinatra::Auth::Github::Test::Helper::User.make.api
     @params =  { 'site' => { 'title' => 'test title', 'description' => 'test desc', 
                              'root_url' => 'test_user.github.io', 
                              'path' => 'deliverytest', 'theme' => 'clean-jekyll' } }

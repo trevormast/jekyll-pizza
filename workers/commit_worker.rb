@@ -9,6 +9,18 @@ require './lib/oven'
 require './lib/taste_test'
 require 'pry'
 
+Sidekiq.configure_server do |config|
+  if ENV['RACK_ENV'] == 'production'
+    config.redis = { url: 'redis://redistogo:df7be5588f72a6fe0e7b93dfb97f1464@squawfish.redistogo.com:9248/' }
+  end
+end
+
+Sidekiq.configure_client do |config|
+  if ENV['RACK_ENV'] == 'production'
+    config.redis = { url: 'redis://redistogo:df7be5588f72a6fe0e7b93dfb97f1464@squawfish.redistogo.com:9248/' }
+  end
+end
+
 class CommitWorker
   include Sidekiq::Worker
 
