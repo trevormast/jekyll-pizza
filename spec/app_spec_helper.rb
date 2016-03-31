@@ -25,14 +25,14 @@ end
 
 # Performs synchronous job for testing
 class JekyllPizza::App
-  def create_blog(token, params)
-    CommitWorker.new.perform(token, params)
+  def create_blog(_token, params)
+    @job_id = CommitWorker.new.perform(params)
   end
 end
 
 # user token is unavailable in testing
 class CommitWorker
-  def perform(_token, params)
+  def perform(params)
     client = Sinatra::Auth::Github::Test::Helper::User.make.api
     order = JekyllPizza::Order.new(user: client,
                                    params: params)

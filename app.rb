@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/auth/github'
+require 'sidekiq_status'
 require './lib/view_helpers'
 require './lib/dweet_pizza'
 require './lib/order'
@@ -59,13 +60,9 @@ module JekyllPizza
           @failures += 1
           redirect "/new?error=Oops, that repository already exists, pick a new path!&failures=#{@failures}"
         end
-
-        # site_info = Delivery.new(order: order, 
-        #                          directory: Recipe.new(order.site_params).dir,
-        #                          repo: Oven.new, 
-        #                          build_status: TasteTest.new).run
-
         create_blog(@user.token, params)
+
+        # _container = SidekiqStatus::Container.load(@job_id)
 
         @repo = repo_name(order)
         @site_url = blog_url(order)
@@ -132,7 +129,7 @@ module JekyllPizza
     end
 
     def create_blog(token, params)
-      CommitWorker.perform_async(token, params)
+      @job_id = CommitWorker.perform_async(token, params)
     end
   end
 end

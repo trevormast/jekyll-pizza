@@ -4,6 +4,13 @@ GIT
   specs:
     dweet (0.0.1)
 
+GIT
+  remote: https://github.com/cryo28/sidekiq_status.git
+  revision: fe473168c1679557ca788d3a76d638bb6a5af90e
+  specs:
+    sidekiq_status (1.1.0)
+      sidekiq (>= 3.3, < 4.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -171,6 +178,7 @@ DEPENDENCIES
   rubocop
   sass
   sidekiq
+  sidekiq_status!
   simplecov
   sinatra
   sinatra_auth_github
