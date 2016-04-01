@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/auth/github'
 require 'sidekiq_status'
+require 'gon-sinatra'
 require './lib/view_helpers'
 require './lib/dweet_pizza'
 require './lib/order'
@@ -30,6 +31,8 @@ module JekyllPizza
     include BlogPoole::DweetPizza
 
     register Sinatra::Auth::Github
+    register Gon::Sinatra
+
 
     get '/' do
       @flash ||= []
@@ -42,6 +45,9 @@ module JekyllPizza
       @flash << params[:error] if params[:error]
       setup_user
       dweet_login
+
+      @varib = "fuck this shit"
+      gon.varib = @varib
 
       slim :new, layout: :default
     end
@@ -62,12 +68,13 @@ module JekyllPizza
         end
         create_blog(@user.token, params)
 
-        # _container = SidekiqStatus::Container.load(@job_id)
+        gon.status = "testtinggg"
 
         @repo = repo_name(order)
         @site_url = blog_url(order)
         # dweet_creation
         slim :create, layout: :default
+
       rescue PathError => p
         @failures += 1
         redirect "/new?error=#{p.message}"  
@@ -130,6 +137,8 @@ module JekyllPizza
 
     def create_blog(token, params)
       @job_id = CommitWorker.perform_async(token, params)
+      @container = SidekiqStatus::Container.load(@job_id)
+      gon.worker_status = @container.status
     end
   end
 end

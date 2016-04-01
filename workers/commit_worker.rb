@@ -32,6 +32,8 @@ class CommitWorker
 
     order = JekyllPizza::Order.new(user: client,
                                    params: params)
+
+
     JekyllPizza::Delivery.new(order: order, 
                               directory: JekyllPizza::Recipe.new(order.site_params).dir,
                               repo: JekyllPizza::Oven.new, 

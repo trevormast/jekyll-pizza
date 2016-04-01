@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'gon-sinatra'
 require 'githubstubs'
 require 'app_spec_helper'
 
