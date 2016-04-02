@@ -1,22 +1,22 @@
 doctype html
 html lang="en"
   head
-    meta charset="utf-8" 
-    meta name="viewport" content="width=device-width, initial-scale=1" 
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1"
 
-    meta content="Jekyll.Pizza" property="og:title" 
-    meta content="website" property="og:type" 
-    meta content="https://fresh.jekyll.pizza/"  property="og:url" 
-    meta content="https://fresh.jekyll.pizza/images/openg.png" property="og:image" 
-    meta content="Jekyll.Pizza is a static blog generator 
-    that creates custom Jekyll blogs and commits them to GitHub." property="og:description" 
+    meta content="Jekyll.Pizza" property="og:title"
+    meta content="website" property="og:type"
+    meta content="https://fresh.jekyll.pizza/"  property="og:url"
+    meta content="https://fresh.jekyll.pizza/images/openg.png" property="og:image"
+    meta content="Jekyll.Pizza is a static blog generator
+    that creates custom Jekyll blogs and commits them to GitHub." property="og:description"
 
     /![if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]
     link rel="stylesheet" href="/stylesheets/main.css"
     link rel="stylesheet" href="/auth-buttons.css"
     link rel="stylesheet" href="/default.css"
     link rel="stylesheet" href="//fonts.googleapis.com/css?family=Work+Sans:400,900,200|Playfair+Display:400,900"
-    link rel="stylesheet" href="/assets/css/featherlight.css" 
+    link rel="stylesheet" href="/assets/css/featherlight.css"
     /![if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]
     /![if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]
 
@@ -49,7 +49,7 @@ html lang="en"
       header id="header" class="alt"
         h1
           a href="#{root_url}#content" jekyll.pizza
-        
+
       #content
         - @flash.each do |message|
           p.alert== message
@@ -58,7 +58,7 @@ html lang="en"
       section#footer
         .inner
           ul.contact
-            li.fa-home 
+            li.fa-home
               a href="#{root_url}" jekyll.pizza
             li.fa-creative-commons
               a href="#{root_url}attribution" attribution
@@ -66,17 +66,17 @@ html lang="en"
               a href="mailto:info@jekyll.pizza" info@jekyll.pizza
             li.fa-twitter
               a href="https://twitter.com/jekyllpizza" target="_blank" twitter.com/jekyllpizza
-            
+
             / someday..
             / li.fa-btc
             /   a href="#{root_url}donate/" donate
-                
-            
+
+
           ul.copyright
             li &copy; <a href="#{root_url}">jekyll.pizza</a> 2015 - All rights reserved.
             li
               | Design:
-              a href="http://html5up.net"  HTML5 UP  
+              a href="http://html5up.net"  HTML5 UP
 
     coffee:
       $ ->
@@ -96,3 +96,7 @@ html lang="en"
 
         $(document).ready(ready)
         $(document).on('page:load', ready)
+
+    javascript:
+      var BASE_URL = "#{root_url}";
+
