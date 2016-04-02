@@ -1,4 +1,4 @@
-section#wrapper
+section#wrapper data_id="#{@job_id}"
   section#one.wrapper.spotlight.style1
     .inner
       div style="display: block; width: 50%; margin-left: 3.0em; text-align: left;"
@@ -6,6 +6,22 @@ section#wrapper
           a href="#{@repo}"= @repo
           br
         a href="#{@site_url}"= @site_url
-      
+
       div
-        h1 Order up!
+        h1#blog-status waiting
+
+javascript:
+
+  BASE_URL = "#{root_url}"
+  var job_id = $(document).find("section#wrapper").attr("data_id");
+  var json_url = BASE_URL + "worker_status.json?job_id=" + job_id;
+
+  setInterval(function(){
+    $.ajax({ url: json_url, success: function(data){
+        var status = data['worker_status'];
+        console.log(data['worker_status']);
+        document.getElementById("blog-status").innerHTML = status
+    }, dataType: "json"});
+  }, 1000);
+
+

@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/auth/github'
 require 'sidekiq_status'
+require 'json'
 require './lib/view_helpers'
 require './lib/dweet_pizza'
 require './lib/order'
@@ -33,7 +34,7 @@ module JekyllPizza
 
     get '/' do
       @flash ||= []
-      slim :index, layout: :default 
+      slim :index, layout: :default
     end
 
     get '/new' do
@@ -53,7 +54,7 @@ module JekyllPizza
 
       begin
         # TODO: improve validations
-        order = Order.new(user: @user, 
+        order = Order.new(user: @user,
                           params: params)
 
         if @api.repository?(order.user_repo_path)
@@ -62,15 +63,13 @@ module JekyllPizza
         end
         create_blog(@user.token, params)
 
-        # _container = SidekiqStatus::Container.load(@job_id)
-
         @repo = repo_name(order)
         @site_url = blog_url(order)
         # dweet_creation
         slim :create, layout: :default
       rescue PathError => p
         @failures += 1
-        redirect "/new?error=#{p.message}"  
+        redirect "/new?error=#{p.message}"
       rescue StandardError => e
         # TODO: improve logging, error handling.. issue #
         puts e.message
@@ -102,6 +101,18 @@ module JekyllPizza
     get '/donate' do
       @flash ||= []
       slim :donate, layout: :default
+    end
+
+    get '/worker_status.json' do
+      # '/worker_status.json?job_id="asdfs4dfs56df7sdf"'
+
+      @job_id = params['job_id']
+
+      @container = SidekiqStatus::Container.load(@job_id)
+      @container.status
+
+      content_type :json
+      { worker_status: "#{@container.status}" }.to_json
     end
 
     # helper methods
