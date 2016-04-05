@@ -110,9 +110,12 @@ module JekyllPizza
 
       @container = SidekiqStatus::Container.load(@job_id)
       @container.status
+      @container.at
+
+      @container.reload
 
       content_type :json
-      { worker_status: "#{@container.status}" }.to_json
+      { worker_status: "#{@container.status}", at: "#{@container.at}", message: "#{@container.message}" }.to_json
     end
 
     # helper methods
