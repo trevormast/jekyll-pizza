@@ -8,19 +8,29 @@ section#wrapper data_id="#{@job_id}"
         a href="#{@site_url}"= @site_url
 
       div
-        h1#blog-status waiting
+      #myProgress
+        #myBar
+          h1#blog-status waiting
 
 javascript:
 
   BASE_URL = "#{root_url}"
-  var job_id = $(document).find("section#wrapper").attr("data_id");
+  /*var job_id = $(document).find("section#wrapper").attr("data_id");*/
+  var job_id = "#{@job_id}"
   var json_url = BASE_URL + "worker_status.json?job_id=" + job_id;
 
-  setInterval(function(){
+  var intervalID = setInterval(function(){
     $.ajax({ url: json_url, success: function(data){
-        var status = data['worker_status'];
-        console.log(data['worker_status']);
+        var status = data['message'];
+        var at = data['at']
+
         document.getElementById("blog-status").innerHTML = status
+        document.getElementById("myBar").style.width = at + "%"
+
+        if(data['worker_status'] === 'complete'){
+          document.getElementById("blog-status").innerHTML = "Complete!"
+          clearInterval(intervalID);
+        }
     }, dataType: "json"});
   }, 1000);
 

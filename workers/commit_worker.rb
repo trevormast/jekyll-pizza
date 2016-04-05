@@ -10,32 +10,27 @@ require './lib/oven'
 require './lib/taste_test'
 require 'pry'
 
-# Sidekiq.configure_server do |config|
-#   if ENV['RACK_ENV'] == 'production'
-#     config.redis = { url: 'redis://redistogo:df7be5588f72a6fe0e7b93dfb97f1464@squawfish.redistogo.com:9248/' }
-#   end
-# end
-
-# Sidekiq.configure_client do |config|
-#   if ENV['RACK_ENV'] == 'production'
-#     config.redis = { url: 'redis://redistogo:df7be5588f72a6fe0e7b93dfb97f1464@squawfish.redistogo.com:9248/' }
-#   end
-# end
-
 class CommitWorker
-  include Sidekiq::Worker
+  include Sidekiq::Worker if ENV['RACK_ENV'] == 'test'
   include SidekiqStatus::Worker if ENV['RACK_ENV'] != 'test'
   # sidekiq_options retry: false
 
   def perform(token, params)
+    self.total = 100
+
+    at(0, 'Starting...')
     client = Octokit::Client.new(access_token: token)
 
+    at(30, 'Taking Order...')
     order = JekyllPizza::Order.new(user: client,
                                    params: params)
 
-    JekyllPizza::Delivery.new(order: order, 
-                              directory: JekyllPizza::Recipe.new(order.site_params).dir,
-                              repo: JekyllPizza::Oven.new, 
-                              build_status: JekyllPizza::TasteTest.new).run
+    at(60, 'Committing Blog...')
+    @delivery = JekyllPizza::Delivery.new(order: order,
+                                          directory: JekyllPizza::Recipe.new(order.site_params).dir,
+                                          repo: JekyllPizza::Oven.new,
+                                          build_status: JekyllPizza::TasteTest.new).run
+
+    at(100, 'Complete!')
   end
 end

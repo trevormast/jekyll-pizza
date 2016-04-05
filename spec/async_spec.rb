@@ -5,7 +5,7 @@ require 'app_spec_helper'
 require File.expand_path '../../app.rb', __FILE__
 require File.expand_path '../../workers/commit_worker.rb', __FILE__
 
-describe 'Worker' do 
+describe 'Worker' do
   before do
     class JekyllPizza::App
       def create_test_blog(_token, params)
@@ -13,8 +13,8 @@ describe 'Worker' do
       end
     end
 
-    @params =  { 'site' => { 'title' => 'test title', 'description' => 'test desc', 
-                             'root_url' => 'test_user.github.io', 
+    @params =  { 'site' => { 'title' => 'test title', 'description' => 'test desc',
+                             'root_url' => 'test_user.github.io',
                              'path' => 'deliverytest', 'theme' => 'clean-jekyll' } }
     def app
       JekyllPizza::App.allocate
