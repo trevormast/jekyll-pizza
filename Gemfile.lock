@@ -173,6 +173,7 @@ DEPENDENCIES
   rack-ssl-enforcer
   rack-test
   rake
+  redis
   rerun
   rspec
   rubocop
