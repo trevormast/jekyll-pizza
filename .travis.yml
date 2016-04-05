@@ -1,4 +1,9 @@
 language: ruby
+before_script:
+  - bundle exec sidekiq -r ./workers/commit_worker.rb
 
 gemfile: Gemfile
+
+services:
+  - redis-server
 
