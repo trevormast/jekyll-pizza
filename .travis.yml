@@ -1,6 +1,7 @@
 language: ruby
 before_script:
   - bundle exec sidekiq -r ./workers/commit_worker.rb
+  - sleep 1
 
 gemfile: Gemfile
 
