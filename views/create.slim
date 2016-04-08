@@ -19,7 +19,8 @@ javascript:
   var job_id = "#{@job_id}"
   var json_url = BASE_URL + "worker_status.json?job_id=" + job_id;
 
-  var intervalID = setInterval(function(){
+  if(document.getElementById("blog-status").innerHTML != "Complete!"){
+    var intervalID = setInterval(function(){
     $.ajax({ url: json_url, success: function(data){
         var status = data['message'];
         var at = data['at']
@@ -28,10 +29,15 @@ javascript:
         document.getElementById("myBar").style.width = at + "%"
 
         if(data['worker_status'] === 'complete'){
-          document.getElementById("blog-status").innerHTML = "Complete!"
+          document.getElementById("blog-status").innerHTML = "Complete!";
+          document.getElementById("myBar").style.backgroundColor = "#545454";
+          document.getElementById("myProgress").style.boxShadow = "none"
           clearInterval(intervalID);
         }
     }, dataType: "json"});
   }, 1000);
+
+  }
+
 
 
