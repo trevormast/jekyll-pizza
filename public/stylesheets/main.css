@@ -38,8 +38,9 @@ body {
   -webkit-text-size-adjust: none; }
 
 #myProgress {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.125);
+  border-radius: 2px;
   position: relative;
-  border-radius: 5px;
   width: 50%;
   height: 30px;
   background-color: grey;
@@ -47,10 +48,9 @@ body {
 
 #myBar {
     position: absolute;
-    border-radius: 5px;
     width: 1%;
     height: 100%;
-    background-color: green;
+    background-color: #3F403F;
 }
 
 /* Box Model */

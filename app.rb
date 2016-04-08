@@ -105,13 +105,9 @@ module JekyllPizza
 
     get '/worker_status.json' do
       # '/worker_status.json?job_id="asdfs4dfs56df7sdf"'
-
       @job_id = params['job_id']
 
       @container = SidekiqStatus::Container.load(@job_id)
-      @container.status
-      @container.at
-
       @container.reload
 
       content_type :json
