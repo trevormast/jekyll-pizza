@@ -8,36 +8,61 @@ section#wrapper data_id="#{@job_id}"
         a href="#{@site_url}"= @site_url
 
       div
-      #myProgress
-        #myBar
-          h1#blog-status waiting
+      - if SidekiqStatus::Container.load(@job_id).status != "complete"
+        #myProgress
+          #myBar
+            h1#blog-status waiting
+      - else
+        h1#blog-status Complete!
 
-javascript:
+- if SidekiqStatus::Container.load(@job_id).status != "complete"
+  javascript:
 
-  BASE_URL = "#{root_url}"
-  /*var job_id = $(document).find("section#wrapper").attr("data_id");*/
-  var job_id = "#{@job_id}"
-  var json_url = BASE_URL + "worker_status.json?job_id=" + job_id;
+    BASE_URL = "#{root_url}"
 
-  if(document.getElementById("blog-status").innerHTML != "Complete!"){
-    var intervalID = setInterval(function(){
-    $.ajax({ url: json_url, success: function(data){
-        var status = data['message'];
-        var at = data['at']
+    var job_id = "#{@job_id}"
+    var json_url = BASE_URL + "worker_status.json?job_id=" + job_id;
 
-        document.getElementById("blog-status").innerHTML = status
-        document.getElementById("myBar").style.width = at + "%"
+    var visited = sessionStorage.getItem("create.visited")
 
-        if(data['worker_status'] === 'complete'){
+    if (visited == null) {
+      sessionStorage.setItem("create.visited", "1")
+      } else {
+        var ssAt = sessionStorage.getItem("create.at");
+        var ssMessage = sessionStorage.getItem("create.message");
+
+        document.getElementById("blog-status").innerHTML = ssMessage;
+        document.getElementById("myBar").style.width = ssAt + "%";
+
+        if (ssAt == "100") {
           document.getElementById("blog-status").innerHTML = "Complete!";
           document.getElementById("myBar").style.backgroundColor = "#545454";
-          document.getElementById("myProgress").style.boxShadow = "none"
-          clearInterval(intervalID);
-        }
-    }, dataType: "json"});
-  }, 1000);
+          document.getElementById("myProgress").style.boxShadow = "none";
+      };
+    };
 
-  }
+    if(document.getElementById("blog-status").innerHTML != "Complete!"){
+      var intervalID = setInterval(function(){
+      $.ajax({ url: json_url, success: function(data){
+          var status = data['message'];
+          var at = data['at'];
+
+          sessionStorage.setItem("create.message", data['message'])
+          sessionStorage.setItem("create.at", data['at'])
+
+          document.getElementById("blog-status").innerHTML = status
+          document.getElementById("myBar").style.width = at + "%"
+
+          if(data['worker_status'] === 'complete'){
+            document.getElementById("blog-status").innerHTML = "Complete!";
+            document.getElementById("myBar").style.backgroundColor = "#545454";
+            document.getElementById("myProgress").style.boxShadow = "none"
+            clearInterval(intervalID);
+          }
+      }, dataType: "json"});
+    }, 1000);
+
+    }
 
 
 
