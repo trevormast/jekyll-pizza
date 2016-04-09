@@ -29,23 +29,23 @@ section#wrapper
             input type="hidden" name="site[theme]" id="theme"
 
             div id="theme-box" style="padding-top: 25px"
-              h2 style="float: left; margin-bottom: .2em" Theme 
+              h2 style="float: left; margin-bottom: .2em" Theme
               img id="current-theme" style="width: 50%; height: 50%" src="#{root_url}/images/clean-jekyll.png"
               a class="button" href="#" data-featherlight="#modal-box" style="float: left; margin-bottom: 10px" Choose Theme
 
               input type="submit" style="float: left; margin-top: 10px" value="Create"
 
-          
-          
+
+
       div id="side-form"
         a href="http://github.com/#{@user.login}" target="_blank" style="border-bottom: 0 none"
           img src="#{@user.avatar_url}" style="width: 100px; border-radius: 50%;"
         h2 Submit your Order
         p Enter some information about your new blog to get started
-        
-        br clear="both" 
 
-        
+        br clear="both"
+
+
 
       div class="featherlight" id="modal-box"
         div class="featherlight-content" id="modal-content"
@@ -53,35 +53,35 @@ section#wrapper
           div class="featherlight-inner" id="modal-images"
 
             div class="featherlight-inner modal-demo-buttons" id="clean-jekyll"
-              a class="tile" href="#" 
-                img class="featherlight-image form-image" id="clean-jekyll" src="#{root_url}/images/clean-jekyll.png" data-id="clean-jekyll" 
+              a class="tile" href="#"
+                img class="featherlight-image form-image" id="clean-jekyll" src="#{root_url}/images/clean-jekyll.png" data-id="clean-jekyll"
 
-                a id="live-button" class="live-button button" href="https://trevormast.github.io/sample/"  target="_blank" Live Demo 
+                a id="live-button" class="live-button button" href="https://trevormast.github.io/sample/"  target="_blank" Live Demo
                 a id="clean-jekyll" class="select-button button" href="#" Select
-            
-            div class="featherlight-inner modal-demo-buttons" id="flex"
-              a class="tile" href="#" 
-                img class="featherlight-image form-image" id="flex" src="#{root_url}/images/flex.png" data-id="flex" 
 
-                a id="demo-button" class="live-button button" href="http://the-development.github.io/flex/"  target="_blank" Live Demo 
+            div class="featherlight-inner modal-demo-buttons" id="flex"
+              a class="tile" href="#"
+                img class="featherlight-image form-image" id="flex" src="#{root_url}/images/flex.png" data-id="flex"
+
+                a id="demo-button" class="live-button button" href="http://the-development.github.io/flex/"  target="_blank" Live Demo
                 a id="flex" class="select-button button" href="#" Select
 
-            div class="featherlight-inner modal-demo-buttons" id="compass" 
-              a class="tile" href="#" 
-                img class="featherlight-image form-image" id="compass" src="#{root_url}/images/compass.png" data-id="compass" 
+            div class="featherlight-inner modal-demo-buttons" id="compass"
+              a class="tile" href="#"
+                img class="featherlight-image form-image" id="compass" src="#{root_url}/images/compass.png" data-id="compass"
 
                 a id="demo-button" class="live-button button" href="http://excentris.net/compass"target="_blank" Live Demo
                 a id="compass" class="select-button button" href="#" Select
 
             div class="featherlight-inner modal-demo-buttons" id="brume"
-              a class="tile" href="#" 
-                img class="featherlight-image form-image" id="brume" src="#{root_url}/images/brume.png" data-id="brume" 
-              
-                a id="demo-button" class="live-button button" href="http://aigarsdz.github.io/brume/" target="_blank" Live Demo    
+              a class="tile" href="#"
+                img class="featherlight-image form-image" id="brume" src="#{root_url}/images/brume.png" data-id="brume"
+
+                a id="demo-button" class="live-button button" href="http://aigarsdz.github.io/brume/" target="_blank" Live Demo
                 a id="brume" class="select-button button" href="#" Select
 
-            / div class="featherlight-inner" id="modal-button" 
-            /   a id="save-button" class="button" href="#"Save   
+            / div class="featherlight-inner" id="modal-button"
+            /   a id="save-button" class="button" href="#"Save
 
 javascript:
   var prefImage = "clean-jekyll";
@@ -100,14 +100,14 @@ javascript:
       $("#" + $(this).attr('id') + ' .form-image').css({'opacity': '.5'});
       $("#" + $(this).attr('id') + ' .live-button').css({'display': 'inline'})
       $("#" + $(this).attr('id') + ' .select-button').css({'display': 'inline'})
-      }, 
+      },
       function(){
         $("#" + $(this).attr('id') + ' .form-image').css({'opacity': '1'});
         $("#" + $(this).attr('id') + ' .live-button').css({'display': 'none'})
         $("#" + $(this).attr('id') + ' .select-button').css({'display': 'none'})
       })
-  
-    
+
+
 javascript:
   $(function () {
     $('#blog-form').submit(function () {
@@ -117,7 +117,7 @@ javascript:
       var elem = document.getElementById("theme");
       elem.value = prefImage;
       //$('input#theme').val($("prefImage").val());
-      // return true; 
+      // return true;
     })
 
     // fun with clickers.
@@ -145,5 +145,7 @@ javascript:
   javascript:
     $(function () {
         $('#path').attr('required','required')
-      })  
+      })
 
+javascript:
+  sessionStorage.clear();
