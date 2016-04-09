@@ -3,12 +3,13 @@ require 'sidekiq_status' if ENV['RACK_ENV'] != 'test'
 require 'octokit'
 require 'active_support'
 require 'active_support/core_ext/object/blank'
+require './lib/view_helpers'
 require './lib/order'
 require './lib/delivery'
 require './lib/recipe'
 require './lib/oven'
 require './lib/taste_test'
-require 'pry'
+
 
 class CommitWorker
   include Sidekiq::Worker if ENV['RACK_ENV'] == 'test'
