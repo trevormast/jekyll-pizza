@@ -10,7 +10,6 @@ require './lib/recipe'
 require './lib/oven'
 require './lib/taste_test'
 
-
 class CommitWorker
   include Sidekiq::Worker if ENV['RACK_ENV'] == 'test'
   include SidekiqStatus::Worker if ENV['RACK_ENV'] != 'test'
