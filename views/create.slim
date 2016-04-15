@@ -1,4 +1,4 @@
-section#wrapper data_id="#{@job_id}"
+section#wrapper
   section#one.wrapper.spotlight.style1
     .inner
       div style="display: block; width: 50%; margin-left: 3.0em; text-align: left;"
@@ -12,55 +12,50 @@ section#wrapper data_id="#{@job_id}"
         #myBar
           h1#blog-status waiting
 
-
-
 javascript:
 
-  BASE_URL = "#{root_url}"
+  var json_url = "#{root_url}" + "worker_status.json?job_id=" + "#{@job_id}";
+  var visited = sessionStorage.getItem("create.visited");
 
-  var job_id = "#{@job_id}"
-  var json_url = BASE_URL + "worker_status.json?job_id=" + job_id;
-
-  var visited = sessionStorage.getItem("create.visited")
-
-  if (visited == null) {
-    sessionStorage.setItem("create.visited", "1")
-    } else {
-      var ssAt = sessionStorage.getItem("create.at");
-      var ssMessage = sessionStorage.getItem("create.message");
-
-      document.getElementById("blog-status").innerHTML = ssMessage;
-      document.getElementById("myBar").style.width = ssAt + "%";
-
-      if (ssAt == "100") {
-        document.getElementById("blog-status").innerHTML = "Complete!";
-        document.getElementById("myBar").style.backgroundColor = "#545454";
-        document.getElementById("myProgress").style.boxShadow = "none";
-    };
+  function hideBar() {
+    document.getElementById("blog-status").innerHTML = "Complete!";
+    document.getElementById("myBar").style.backgroundColor = "#545454";
+    document.getElementById("myProgress").style.boxShadow = "none";
   };
 
-  if(document.getElementById("blog-status").innerHTML != "Complete!"){
-    var intervalID = setInterval(function(){
-    $.ajax({ url: json_url, success: function(data){
-        var status = data['message'];
-        var at = data['at'];
+  function updateBar(message, at) {
+    document.getElementById("blog-status").innerHTML = message;
+    document.getElementById("myBar").style.width = at + "%";
+  };
 
-        sessionStorage.setItem("create.message", data['message'])
-        sessionStorage.setItem("create.at", data['at'])
+  // On page load: if page visited, get progress bar info from sessionStorage
+  if (visited === null) {
+    sessionStorage.setItem("create.visited", "1")
+    } else {
+      var ssMessage = sessionStorage.getItem("create.message");
+      var ssAt = sessionStorage.getItem("create.at");
 
-        document.getElementById("blog-status").innerHTML = status
-        document.getElementById("myBar").style.width = at + "%"
+      updateBar(ssMessage, ssAt);
+      if (ssAt === "100") {
+        hideBar();
+      };
+  };
 
-        if(data['worker_status'] === 'complete'){
-          document.getElementById("blog-status").innerHTML = "Complete!";
-          document.getElementById("myBar").style.backgroundColor = "#545454";
-          document.getElementById("myProgress").style.boxShadow = "none"
+  // get json with worker info every second until process complete
+  if(document.getElementById("blog-status").innerHTML !== "Complete!") {
+    var intervalID = setInterval(function() {
+      $.ajax({ url: json_url, success: function(data) {
+        var message = data.message;
+        var at = data.at;
+
+        sessionStorage.setItem("create.message", message);
+        sessionStorage.setItem("create.at", at);
+
+        updateBar(message, at);
+        if (data.worker_status === 'complete'){
+          hideBar();
           clearInterval(intervalID);
         }
-    }, dataType: "json"});
-  }, 1000);
-
+      }, dataType: "json"});
+    }, 1000);
   }
-
-
-
