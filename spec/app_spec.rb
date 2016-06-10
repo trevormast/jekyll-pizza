@@ -17,6 +17,11 @@ describe 'App' do
       get '/'
       expect(last_response).to be_ok
     end
+
+    it 'loads analytics snippet' do
+      get '/'
+      expect(last_response.body).to include('https://www.google-analytics.com/analytics.js')
+    end
   end
   
   describe "GET '/new'" do

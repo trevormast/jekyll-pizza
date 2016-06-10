@@ -16,5 +16,9 @@ module JekyllPizza
     def current_path
       request.path_info
     end
+
+    def analytics_id
+      ENV['ANALYTICS_ID']
+    end
   end
 end
