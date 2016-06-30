@@ -1,9 +1,9 @@
 require './lib/path_error'
 
-module JekyllPizza 
-  class Order 
+module JekyllPizza
+  class Order
     attr_reader :user, :root_repo, :repo_url
-    def initialize(args)          
+    def initialize(args)
       @user = args[:user]
       @params = args[:params]
       @root_repo = nil
@@ -34,7 +34,8 @@ module JekyllPizza
     private
 
     def sanitized_path
-      if @params['site']['path'].match(/\A\/?[a-z|0-9][a-z|0-9|\-|\_]*\z/) || @path == ''
+      path = @params['site']['path']
+      if path.match(/\A\/?[a-z|0-9][a-z|0-9|\-|\_]*\z/) || path == ''
         return @params['site']['path']
       else
         fail PathError
@@ -44,7 +45,7 @@ module JekyllPizza
     def repository_url
       if @params['site']['path'].blank?
         @root_repo = true
-        return @safe_params['url'].gsub('https://', '') 
+        return site_params['url'].gsub('https://', '')
       end
       @repo_url = blog_path.gsub('https://', '').delete('/')
     end
