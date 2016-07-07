@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'sinatra/auth/github/test/test_helper'
 require 'json'
 require 'githubstubs'
-# require File.expand_path '../../lib/taste_test.rb', __FILE__
 require 'app_spec_helper'
 
 describe 'App' do
@@ -23,11 +22,11 @@ describe 'App' do
       expect(last_response.body).to include('https://www.google-analytics.com/analytics.js')
     end
   end
-  
+
   describe "GET '/new'" do
     it 'loads new page' do
       login_as Sinatra::Auth::Github::Test::Helper::User.make
-      
+
       stub_request(:get, 'https://api.github.com/repos/test_user/test_user.github.io').
         with(headers: { 'Accept' => 'application/vnd.github.v3+json', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type' => 'application/json', 'User-Agent' => 'Octokit Ruby Gem 4.1.1' }).
         to_return(status: 200, body: '', headers: {})
@@ -53,9 +52,9 @@ describe 'App' do
       include GitHubStubs
 
       GitHubStubs.valid_stubs
-      
+
       params =  { 'site' => { 'title' => '', 'description' => '', 'root_url' => 'user.github.io', 'path' => 'path', 'theme' => 'clean-jekyll' } }
-      
+
       post 'create', params
     end
 

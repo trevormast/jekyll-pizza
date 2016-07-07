@@ -1,7 +1,5 @@
 require 'spec_helper'
 require 'githubstubs'
-require File.expand_path '../../lib/taste_test.rb', __FILE__
-require File.expand_path '../../lib/oven.rb', __FILE__
 require 'app_spec_helper'
 require 'pry'
 
@@ -17,11 +15,11 @@ describe 'Taste Test' do
     GitHubStubs.valid_stubs
 
     @user = Sinatra::Auth::Github::Test::Helper::User.make.api
-    @params =  { 'site' => { 'title' => 'test title', 'description' => 'test desc', 
-                             'root_url' => 'test_user.github.io', 
+    @params =  { 'site' => { 'title' => 'test title', 'description' => 'test desc',
+                             'root_url' => 'test_user.github.io',
                              'path' => 'deliverytest', 'theme' => 'clean-jekyll' } }
     @order = JekyllPizza::Order.new(user: @user, params: @params)
-                                                                
+
     @dir = Dir.mktmpdir
 
     @oven = JekyllPizza::Oven.new
@@ -38,7 +36,7 @@ describe 'Taste Test' do
 
   it 'checks build status' do
     @taste.run(user: @user, site_info: @site_info)
-    
+
     expect(a_request(:get, 'https://api.github.com/repos/test_user/path/pages')).to have_been_made.times(3)
   end
 
