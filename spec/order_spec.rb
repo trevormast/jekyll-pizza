@@ -2,8 +2,6 @@ require 'rspec'
 require 'sinatra/auth/github/test/test_helper'
 require 'pry'
 
-require File.expand_path '../../lib/order.rb', __FILE__
-
 describe 'Order' do
   context 'with allowed path name' do
     before do

@@ -3,11 +3,7 @@ require 'sidekiq_status' if ENV['RACK_ENV'] != 'test'
 require 'octokit'
 require 'active_support'
 require 'active_support/core_ext/object/blank'
-require './lib/order'
-require './lib/delivery'
-require './lib/recipe'
-require './lib/oven'
-require './lib/taste_test'
+Dir['./lib/**/*.rb'].each { |file| require file }
 
 class CommitWorker
   include Sidekiq::Worker if ENV['RACK_ENV'] == 'test'

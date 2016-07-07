@@ -2,17 +2,12 @@ require 'sinatra'
 require 'sinatra/auth/github'
 require 'sidekiq_status'
 require 'json'
-require './lib/view_helpers'
-require './lib/dweet_pizza'
-require './lib/order'
-require './lib/delivery'
-require './lib/recipe'
-require './lib/oven'
-require './lib/taste_test'
 require './workers/commit_worker'
 require 'rack/ssl-enforcer'
 require 'dweet'
 require 'pry' if AppEnv.development?
+Dir['./lib/**/*.rb'].each { |file| require file }
+
 # require 'httplog' if AppEnv.development?
 
 module JekyllPizza

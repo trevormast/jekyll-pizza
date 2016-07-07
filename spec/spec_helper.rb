@@ -6,8 +6,10 @@ require 'warden'
 require 'sinatra/auth/github/test/test_helper'
 require 'simplecov'
 require 'pry'
+# Dir['/lib/**/*.rb'].each { |file| require file }
+
 SimpleCov.start do
-  add_filter '/spec/' 
+  add_filter '/spec/'
   add_filter '/lib/dweet_pizza.rb'
 end
 Dotenv.load
@@ -23,8 +25,8 @@ require File.expand_path '../../app.rb', __FILE__
 
 module RSpecMixin
   include Rack::Test::Methods
-  def app 
-    JekyllPizza::App 
+  def app
+    JekyllPizza::App
   end
 end
 
@@ -89,7 +91,6 @@ RSpec.configure do |config|
   #   # unless a formatter has already been configured
   #   # (e.g. via a command-line flag).
   config.default_formatter = 'doc'
-  
 
   # # Print the 10 slowest examples and example groups at the
   # # end of the spec run, to help surface which specs are running
