@@ -37,6 +37,22 @@ table {
 body {
   -webkit-text-size-adjust: none; }
 
+#myProgress {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.125);
+  border-radius: 2px;
+  position: relative;
+  width: 50%;
+  height: 30px;
+  background-color: grey;
+}
+
+#myBar {
+    position: absolute;
+    width: 1%;
+    height: 100%;
+    background-color: #3F403F;
+}
+
 /* Box Model */
 *, *:before, *:after {
   -moz-box-sizing: border-box;

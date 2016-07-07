@@ -3,9 +3,59 @@ section#wrapper
     .inner
       div style="display: block; width: 50%; margin-left: 3.0em; text-align: left;"
         p
-          a href="https://github.com/#{@repo[:full_name]}"= @repo[:full_name]
+          a href="#{@repo}"= @repo
           br
-        a href="#{@site_url}"= @site_url.gsub("https://",'')
-      
+        a href="#{@site_url}"= @site_url
+
       div
-        h1 Order up!
+      #myProgress
+        #myBar
+          h1#blog-status waiting
+
+javascript:
+
+  var json_url = "#{root_url}" + "worker_status.json?job_id=" + "#{@job_id}";
+  var visited = sessionStorage.getItem("create.visited");
+
+  function hideBar() {
+    document.getElementById("blog-status").innerHTML = "Complete!";
+    document.getElementById("myBar").style.backgroundColor = "#545454";
+    document.getElementById("myProgress").style.boxShadow = "none";
+  };
+
+  function updateBar(message, at) {
+    document.getElementById("blog-status").innerHTML = message;
+    document.getElementById("myBar").style.width = at + "%";
+  };
+
+  // On page load: if page visited, get progress bar info from sessionStorage
+  if (visited === null) {
+    sessionStorage.setItem("create.visited", "1")
+    } else {
+      var ssMessage = sessionStorage.getItem("create.message");
+      var ssAt = sessionStorage.getItem("create.at");
+
+      updateBar(ssMessage, ssAt);
+      if (ssAt === "100") {
+        hideBar();
+      };
+  };
+
+  // get json with worker info every second until process complete
+  if(document.getElementById("blog-status").innerHTML !== "Complete!") {
+    var intervalID = setInterval(function() {
+      $.ajax({ url: json_url, success: function(data) {
+        var message = data.message;
+        var at = data.at;
+
+        sessionStorage.setItem("create.message", message);
+        sessionStorage.setItem("create.at", at);
+
+        updateBar(message, at);
+        if (data.worker_status === 'complete'){
+          hideBar();
+          clearInterval(intervalID);
+        }
+      }, dataType: "json"});
+    }, 1000);
+  }

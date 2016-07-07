@@ -1,5 +1,7 @@
 require 'sinatra'
 require 'sinatra/auth/github'
+require 'sidekiq_status'
+require 'json'
 require './lib/view_helpers'
 require './lib/dweet_pizza'
 require './lib/order'
@@ -7,6 +9,7 @@ require './lib/delivery'
 require './lib/recipe'
 require './lib/oven'
 require './lib/taste_test'
+require './workers/commit_worker'
 require 'rack/ssl-enforcer'
 require 'dweet'
 require 'pry' if AppEnv.development?
@@ -31,7 +34,7 @@ module JekyllPizza
 
     get '/' do
       @flash ||= []
-      slim :index, layout: :default 
+      slim :index, layout: :default
     end
 
     get '/new' do
@@ -51,25 +54,22 @@ module JekyllPizza
 
       begin
         # TODO: improve validations
-        order = Order.new(user: @user, 
+        order = Order.new(user: @user,
                           params: params)
 
         if @api.repository?(order.user_repo_path)
           @failures += 1
           redirect "/new?error=Oops, that repository already exists, pick a new path!&failures=#{@failures}"
         end
+        create_blog(@user.token, params)
 
-        site_info = Delivery.new(order: order, 
-                                 directory: Recipe.new(order.site_params).dir,
-                                 repo: Oven.new, 
-                                 build_status: TasteTest.new).run
-        @repo = site_info[:repo]
-        @site_url = site_info[:full_repo_url]
+        @repo = repo_name(order)
+        @site_url = blog_url(order)
         # dweet_creation
         slim :create, layout: :default
       rescue PathError => p
         @failures += 1
-        redirect "/new?error=#{p.message}"  
+        redirect "/new?error=#{p.message}"
       rescue StandardError => e
         # TODO: improve logging, error handling.. issue #
         puts e.message
@@ -103,6 +103,17 @@ module JekyllPizza
       slim :donate, layout: :default
     end
 
+    get '/worker_status.json' do
+      # '/worker_status.json?job_id="asdfs4dfs56df7sdf"'
+      @job_id = params['job_id']
+
+      @container = SidekiqStatus::Container.load(@job_id)
+      @container.reload
+
+      content_type :json
+      { worker_status: "#{@container.status}", at: "#{@container.at}", message: "#{@container.message}" }.to_json
+    end
+
     # helper methods
 
     def setup_user
@@ -115,6 +126,20 @@ module JekyllPizza
 
     def check_root_repo_status
       @api.repository?("#{@user.login}/#{@user.login}.github.io")
+    end
+
+    def repo_name(order)
+      return "https://github.com/#{order.user.login}/#{order.user.login}.github.io" if order.root_repo
+      "https://github.com/#{order.user.login}#{order.site_params['baseurl']}"
+    end
+
+    def blog_url(order)
+      return "https://#{order.user.login}.github.io" if order.root_repo
+      "https://#{order.user.login}.github.io#{order.site_params['baseurl']}"
+    end
+
+    def create_blog(token, params)
+      @job_id = CommitWorker.perform_async(token, params)
     end
   end
 end
