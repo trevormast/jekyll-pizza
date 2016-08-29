@@ -13,6 +13,7 @@ gem 'sass'
 gem 'sidekiq'
 gem 'sidekiq_status', git: 'https://github.com/cryo28/sidekiq_status.git'
 gem 'redis'
+gem 'cuttlekit', git: 'https://github.com/trevormast/cuttlekit.git'
 
 group :development do
   gem 'jekyll', '~> 3.0.0'

@@ -11,6 +11,13 @@ GIT
     sidekiq_status (1.1.0)
       sidekiq (>= 3.3, < 4.2)
 
+GIT
+  remote: https://github.com/trevormast/cuttlekit.git
+  revision: 81b331570e377163734707b73a2d6aec82499ed0
+  specs:
+    cuttlekit (0.1.0)
+      octokit (~> 4.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -162,6 +169,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-script
+  cuttlekit!
   dotenv
   dweet!
   faker
