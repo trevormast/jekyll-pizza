@@ -1,6 +1,7 @@
 require 'sidekiq'
 require 'sidekiq_status' if ENV['RACK_ENV'] != 'test'
 require 'octokit'
+require 'cuttlekit'
 require 'active_support'
 require 'active_support/core_ext/object/blank'
 Dir['./lib/**/*.rb'].each { |file| require file }
@@ -23,7 +24,7 @@ class CommitWorker
     at(60, 'Committing Blog...')
     @delivery = JekyllPizza::Delivery.new(order: order,
                                           directory: JekyllPizza::Recipe.new(order.site_params).dir,
-                                          repo: JekyllPizza::Oven.new,
+                                          repo: Cuttlekit::Committer.new,
                                           build_status: JekyllPizza::TasteTest.new).run
 
     at(100, 'Complete!')

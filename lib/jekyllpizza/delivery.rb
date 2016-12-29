@@ -10,7 +10,7 @@ module JekyllPizza
     end
 
     def run
-      @site_info = @repo.run(order: @order, dir: @dir)
+      @site_info = @repo.commit(@user, @dir, @order.repo_url)
       @build_status.run(user: @user, site_info: @site_info)
       @site_info
     end
